@@ -12,10 +12,10 @@ import EducationSection from './components/EducationSection';
 import AdditionalInformation from './components/AdditionalInformation';
 import { Input } from '@/components/ui/input';
 import { handleAddResume } from '@/lib/IndexedDB/resumeStore';
+import { useNavigate } from 'react-router-dom';
 
 const ResumeCreate = () => {
   const [resume, setResume] = useState<Resume>({
-    id: 0,
     title: '',
     name: '',
     email: '',
@@ -29,11 +29,14 @@ const ResumeCreate = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await handleAddResume({ ...resume, lastModifiedTime: Date.now() });
     if (result.status === 'success') {
       console.log('Resume saved successfully');
+      navigate('/');
     } else {
       console.error('Error saving resume', result.data);
     }

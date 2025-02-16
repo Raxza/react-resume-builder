@@ -2,21 +2,19 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { initDB } from './lib/IndexedDB/db.ts';
 
-
-import { initDB } from './lib/IndexedDB/db';
-
-// Initialize the database
 initDB().then((success) => {
   if (success) {
-    console.log('Database initialized successfully');
+    console.log("IndexedDB initialized successfully!");
   } else {
-    console.error('Failed to initialize database');
+    console.error("Failed to initialize IndexedDB.");
   }
-});
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+  // Render the app only after IndexedDB is initialized
+  createRoot(document.getElementById("root")!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+});

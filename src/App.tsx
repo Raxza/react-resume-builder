@@ -4,6 +4,16 @@ import ResumeList from "./pages/Resume";
 import ResumeEdit from "./pages/Resume/edit";
 
 function App() {
+  // useEffect(() => {
+  //   initDB().then((success) => {
+  //     if (success) {
+  //       console.log("IndexedDB initialized successfully!");
+  //     } else {
+  //       console.error("Failed to initialize IndexedDB.");
+  //     }
+  //   });
+  // }, []);
+
 
   return (
     <>

@@ -1,5 +1,5 @@
 export type Resume = {
-  id: number,
+  id?: number,
   name: string,
   title: string,
   lastModifiedTime: number,
