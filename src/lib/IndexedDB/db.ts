@@ -7,7 +7,7 @@ let version = 1;
 export const initDB = (): Promise<boolean> => {
   return new Promise((resolve) => {
     // open the connection
-    request = indexedDB.open('myDB');
+    request = indexedDB.open('myDB', version);
 
     request.onupgradeneeded = () => {
       db = request.result;
@@ -17,7 +17,6 @@ export const initDB = (): Promise<boolean> => {
         console.log('Creating resume store');
         db.createObjectStore(Stores.Resume, { keyPath: 'id', autoIncrement: true });
       }
-      // no need to resolve here
     };
 
     request.onsuccess = () => {
@@ -67,7 +66,7 @@ export const getAllData = <T>(storeName: string): Promise<DBResponse<T[]>> => {
 
     request.onsuccess = () => {
       db = request.result;
-      const tx = db.transaction(storeName, 'readonly');
+      const tx = db.transaction(storeName);
       const store = tx.objectStore(storeName);
       const getAllRequest = store.getAll();
 
