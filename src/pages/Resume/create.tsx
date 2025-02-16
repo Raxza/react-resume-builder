@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import {
-  DegreeType,
-  Education,
   emptyEducation,
   emptyExperience,
   emptyOther,
-  Experience,
-  Other,
   Resume,
-  ResumeOtherType
 } from "@/types/Resume.ts";
 import { Button } from '@/components/ui/button';
 import PersonalInformation from './components/PersonalInformation';
@@ -92,7 +87,7 @@ const ResumeCreate = () => {
       </div>
 
       <div className="flex justify-between items-center mb-6">
-        {pages.map((page, index) => (
+        {pages.map((_, index) => (
           <div key={index} className="flex items-center">
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center ${index <= currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500'}`}

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { openDB } from 'idb';
+import { useEffect, useState } from 'react';
 import { Resume } from '@/types/Resume';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
