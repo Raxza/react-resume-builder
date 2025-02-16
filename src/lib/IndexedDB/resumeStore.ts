@@ -1,4 +1,3 @@
-import React from "react";
 import { addData, getAllData, getDataById, updateData, deleteData, Stores } from "./db"
 import { Resume } from "../../types/Resume";
 import { DBResponse } from "../../types/DBResponse";

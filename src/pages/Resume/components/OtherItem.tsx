@@ -42,16 +42,16 @@ const OtherItem = ({ other, index, onChange, onRemove }: Props) => {
                   {type}
                 </SelectItem>
               ))}
-              <SelectItem value="Add">Add</SelectItem>
+              {/* <SelectItem value="Add">Add</SelectItem> */}
             </SelectContent>
           </Select>
-          {other.type === "Add" && (
+          {/* {other.type === Other && (
             <Input
               value={other.type}
               onChange={e => updateType(e.target.value)}
               placeholder="Enter type"
             />
-          )}
+          )} */}
         </div>
         <div className="flex items-center space-x-2">
           <Button type="button" onClick={() => setIsMinimized(!isMinimized)} variant="outline" size="sm">

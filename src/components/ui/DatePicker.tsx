@@ -1,9 +1,5 @@
-import { DatePicker as MuiDatePicker, LocalizationProvider, DatePickerProps, DateTimePickerFieldProps, DateTimePickerProps } from '@mui/x-date-pickers'
+import { DatePicker as MuiDatePicker, LocalizationProvider, DatePickerProps } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
-import React from 'react'
-import { Input } from './input'
-import { cn } from '@/lib/utils'
-import { styled, TextField } from '@mui/material'
 
 type Props = DatePickerProps<any>;
 
@@ -32,18 +28,4 @@ const DatePicker = (props: Props) => {
   )
 }
 
-export default DatePicker
-
-// Custom styled TextField component
-const CustomTextField = styled(TextField)({
-  '& .MuiInputBase-root': {
-    height: '20px',
-    borderRadius: '12px',
-    '& fieldset': {
-      borderRadius: '12px',
-    },
-  },
-  '& .MuiPaper-root': {
-    borderRadius: '16px',
-  },
-});
+export default DatePicker;
