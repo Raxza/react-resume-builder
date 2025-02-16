@@ -31,8 +31,7 @@ const ResumeCreate = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async () => {
     const result = await handleAddResume({ ...resume, lastModifiedTime: Date.now() });
     if (result.status === 'success') {
       console.log('Resume saved successfully');
@@ -76,7 +75,7 @@ const ResumeCreate = () => {
   const page = pages[currentPage];
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-6">
+    <form className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="space-y-2">
         <Input
           type="text"
@@ -128,7 +127,7 @@ const ResumeCreate = () => {
             Next
           </Button>
         ) : (
-          <Button type="submit" disabled={!page.isValid}>
+          <Button type="button" disabled={!page.isValid} onClick={handleSave}>
             Save Resume
           </Button>
         )}

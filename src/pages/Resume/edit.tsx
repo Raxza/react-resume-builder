@@ -43,14 +43,14 @@ const ResumeEdit = () => {
       }
     };
     fetchResume();
-  });
+  },[id]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async () => {
     if (resume) {
       const result = await handleUpdateResume({ ...resume, lastModifiedTime: Date.now() });
       if (result.status === 'success') {
         console.log('Resume updated successfully');
+        navigate('/');
       } else {
         console.error('Error updating resume', result.data);
       }
@@ -95,7 +95,7 @@ const ResumeEdit = () => {
   const page = pages[currentPage];
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-6">
+    <form className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="space-y-2">
         <Input
           type="text"
@@ -147,7 +147,7 @@ const ResumeEdit = () => {
             Next
           </Button>
         ) : (
-          <Button type="submit" disabled={!page.isValid}>
+          <Button type="button" disabled={!page.isValid} onClick={handleSave}>
             Save Resume
           </Button>
         )}
