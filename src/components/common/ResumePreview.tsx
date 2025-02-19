@@ -10,7 +10,7 @@ type Props = {
 
 const ResumePreview = ({ resume, scale = 0.5 }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const pageRef = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLPreElement>(null);
   const [innerScale, setInnerScale] = useState(scale);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const ResumePreview = ({ resume, scale = 0.5 }: Props) => {
 
   return (
     <div className="preview-container" ref={containerRef}>
-      <div
+      <pre
         className="page-wrapper"
         ref={pageRef}
         style={{ transform: `scale(${innerScale}, ${innerScale})` }}
@@ -101,7 +101,7 @@ const ResumePreview = ({ resume, scale = 0.5 }: Props) => {
             </section>
           }
         </div>
-      </div>
+      </pre>
     </div>
   );
 };
