@@ -14,21 +14,22 @@ import { handleUpdateResume, handleGetResumeById } from '@/lib/IndexedDB/resumeS
 import { useNavigate, useParams } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
 import { useEffect, useState } from "react";
+import { ChevronLeftIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 const ResumeEdit = () => {
   const { id } = useParams();
   const [resume, setResume] = useState<Resume>({
-      id: 0,
-      title: '',
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      experiences: [emptyExperience],
-      educations: [emptyEducation],
-      others: [emptyOther],
-      lastModifiedTime: Date.now(),
-    });
+    id: 0,
+    title: '',
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    experiences: [emptyExperience],
+    educations: [emptyEducation],
+    others: [emptyOther],
+    lastModifiedTime: Date.now(),
+  });
   const [currentPage, setCurrentPage] = useState(0);
   const [showPreview, setShowPreview] = useState(true);
   const navigate = useNavigate();
@@ -41,11 +42,11 @@ const ResumeEdit = () => {
         navigate('/');
       } else {
         console.log(fetchResume);
-      setResume(fetchedResume);
+        setResume(fetchedResume);
       }
     };
     fetchResume();
-  },[id]);
+  }, [id]);
 
   const handleSave = async () => {
     const updatedResume = {
@@ -101,16 +102,24 @@ const ResumeEdit = () => {
   return (
     <div className="flex">
       <form className="max-w-4xl mx-auto p-6 space-y-6 flex-1">
-        <div className="space-y-2">
-          <Input
-            type="text"
-            id="title"
-            value={resume.title}
-            onChange={(e) => setResume({ ...resume, title: e.target.value })}
-            placeholder='Resume Title'
-            className='w-40'
-            required
-          />
+      <ChevronLeftIcon className="h-10 w-10 cursor-pointer" onClick={() => navigate('/')} />
+        <div className="flex justify-between items-center">
+          <div className="space-y-2">
+            <Input
+              type="text"
+              id="title"
+              value={resume.title}
+              onChange={(e) => setResume({ ...resume, title: e.target.value })}
+              placeholder='Resume Title'
+              className='w-40'
+              required
+            />
+          </div>
+          {showPreview ? (
+            <EyeSlashIcon className="h-7 w-7 cursor-pointer" onClick={() => setShowPreview(false)} />
+          ) : (
+            <EyeIcon className="h-7 w-7 cursor-pointer" onClick={() => setShowPreview(true)} />
+          )}
         </div>
 
         <div className="flex justify-between items-center mb-6">
@@ -160,12 +169,9 @@ const ResumeEdit = () => {
       </form>
       {showPreview && (
         <div className="flex-1 p-6">
-          <ResumePreview resume={resume}/>
+          <ResumePreview resume={resume} />
         </div>
       )}
-      <Button onClick={() => setShowPreview(!showPreview)} className="absolute top-4 right-4">
-        {showPreview ? 'Hide Preview' : 'Show Preview'}
-      </Button>
     </div>
   );
 };
