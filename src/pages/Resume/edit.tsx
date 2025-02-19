@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import {
   emptyEducation,
   emptyExperience,
@@ -14,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { handleUpdateResume, handleGetResumeById } from '@/lib/IndexedDB/resumeStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
+import { useEffect, useState } from "react";
 
 const ResumeEdit = () => {
   const { id } = useParams();
