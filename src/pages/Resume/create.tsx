@@ -22,9 +22,9 @@ const ResumeCreate = () => {
     email: '',
     phone: '',
     address: '',
-    experiences: [emptyExperience],
-    educations: [emptyEducation],
-    others: [emptyOther],
+    experiences: [],
+    educations: [],
+    others: [],
     lastModifiedTime: Date.now(),
   });
 
