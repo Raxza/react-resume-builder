@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   emptyEducation,
   emptyExperience,
@@ -14,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { handleAddResume } from '@/lib/IndexedDB/resumeStore';
 import { useNavigate } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
+import { useState } from "react";
 
 const ResumeCreate = () => {
   const [resume, setResume] = useState<Resume>({
