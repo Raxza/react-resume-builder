@@ -26,11 +26,11 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
   };
 
   const updateStartDate = (date: Date | null) => {
-    onChange({ ...experience, startDate: date ? date.toISOString().slice(0, 7) : '' });
+    onChange({ ...experience, startDate: date || new Date() });
   };
 
   const updateEndDate = (date: Date | null) => {
-    onChange({ ...experience, endDate: date ? date.toISOString().slice(0, 7) : '' });
+    onChange({ ...experience, endDate: date || new Date() });
   };
 
   const updateSummary = (value: string) => {
@@ -55,7 +55,11 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
   };
 
   const updateIsCurrent = (value: boolean) => {
+    if (value) {
+      onChange({ ...experience, isCurrent: value, endDate: null });
+    } else {
     onChange({ ...experience, isCurrent: value });
+    }
   };
 
   return (
@@ -91,23 +95,19 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              {/* <Label>Start Date</Label> */}
-                <DatePicker
-                  label="Start Date"
-                  views={["year", "month"]}
-                  value={experience.startDate ? new Date(experience.startDate) : null}
-                  onChange={updateStartDate}
-                  disableFuture
-                // renderInput={(params) => <Input {...params} />}
-                />
+              <DatePicker
+                label="Start Date"
+                views={["year", "month"]}
+                value={experience.startDate}
+                onChange={updateStartDate}
+                disableFuture
+              />
             </div>
             <div className="space-y-2">
-              {/* <Label>End Date</Label> */}
               <DatePicker
                 label="End Date"
-                // className="flex h-9 w-full rounded-md"
                 views={["year", "month"]}
-                value={experience.endDate ? new Date(experience.endDate) : null}
+                value={experience.endDate}
                 disabled={experience.isCurrent}
                 disableFuture
                 onChange={updateEndDate}
@@ -116,7 +116,9 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
                 <Input
                   type="checkbox"
                   checked={experience.isCurrent}
-                  onChange={e => updateIsCurrent(e.target.checked)}
+                  onChange={e => 
+                    updateIsCurrent(e.target.checked)
+                  }
                   className="h-4 w-4"
                 />
                 <Label>Currently working here</Label>
