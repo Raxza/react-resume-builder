@@ -100,9 +100,9 @@ const ResumeEdit = () => {
   const page = pages[currentPage];
 
   return (
-    <div className="flex">
-      <form className="max-w-4xl mx-auto p-6 space-y-6 flex-1">
-      <ChevronLeftIcon className="h-10 w-10 cursor-pointer" onClick={() => navigate('/')} />
+    <div className="flex flex-col md:flex-row flex-wrap">
+      <form className="max-w-4xl p-6 space-y-6 flex-1 md:w-1/2">
+        <ChevronLeftIcon className="h-10 w-10 cursor-pointer" onClick={() => navigate('/')} />
         <div className="flex justify-between items-center">
           <div className="space-y-2">
             <Input
@@ -168,8 +168,8 @@ const ResumeEdit = () => {
         </div>
       </form>
       {showPreview && (
-        <div className="flex-1 p-6">
-          <ResumePreview resume={resume} />
+        <div className="flex-1 p-6 w-full md:w-1/2">
+          <ResumePreview resume={resume} scale={0.85} />
         </div>
       )}
     </div>

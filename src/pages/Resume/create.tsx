@@ -77,79 +77,79 @@ const ResumeCreate = () => {
   const page = pages[currentPage];
 
   return (
-      <div className="flex">
-        <form className="max-w-4xl mx-auto p-6 space-y-6 flex-1">
-          <ChevronLeftIcon className="h-10 w-10 cursor-pointer" onClick={() => navigate('/')} />
-          <div className="flex justify-between items-center">
-            <div className="space-y-2">
-              <Input
-                type="text"
-                id="title"
-                value={resume.title}
-                onChange={(e) => setResume({ ...resume, title: e.target.value })}
-                placeholder='Resume Title'
-                className='w-40'
-                required
-              />
-            </div>
-            {showPreview ? (
-              <EyeSlashIcon className="h-7 w-7 cursor-pointer" onClick={() => setShowPreview(false)} />
-            ) : (
-              <EyeIcon className="h-7 w-7 cursor-pointer" onClick={() => setShowPreview(true)} />
-            )}
+    <div className="flex sm:flex-col flex-wrap">
+      <form className="max-w-4xl p-6 space-y-6 flex-1 w-1/2">
+        <ChevronLeftIcon className="h-10 w-10 cursor-pointer" onClick={() => navigate('/')} />
+        <div className="flex justify-between items-center">
+          <div className="space-y-2">
+            <Input
+              type="text"
+              id="title"
+              value={resume.title}
+              onChange={(e) => setResume({ ...resume, title: e.target.value })}
+              placeholder='Resume Title'
+              className='w-40'
+              required
+            />
           </div>
+          {showPreview ? (
+            <EyeSlashIcon className="h-7 w-7 cursor-pointer" onClick={() => setShowPreview(false)} />
+          ) : (
+            <EyeIcon className="h-7 w-7 cursor-pointer" onClick={() => setShowPreview(true)} />
+          )}
+        </div>
 
-          <div className="flex justify-between items-center mb-6">
-            {pages.map((_, index) => (
-              <div key={index} className="flex items-center">
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center ${index <= currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500'}`}
-                >
-                  {index + 1}
-                </div>
-                {index < pages.length - 1 && (
-                  <div className={`flex-1 h-1 ${index < currentPage ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {page.content}
-
-          <div className="flex justify-between mt-6">
-            {currentPage > 0 ? (
-              <Button type="button" onClick={() => setCurrentPage(currentPage - 1)}>
-                Previous
-              </Button>
-            ) : (
-              <div className="flex-1" />
-            )}
-
-            {currentPage < pages.length - 1 ? (
-              <Button
-                type="button"
-                disabled={!page.isValid}
-                onClick={() => {
-                  if (page.isValid) {
-                    setCurrentPage(currentPage + 1);
-                  }
-                }}
+        <div className="flex justify-between items-center mb-6">
+          {pages.map((_, index) => (
+            <div key={index} className="flex items-center">
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${index <= currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500'}`}
               >
-                Next
-              </Button>
-            ) : (
-              <Button type="button" disabled={!page.isValid} onClick={handleSave}>
-                Save Resume
-              </Button>
-            )}
-          </div>
-        </form>
-        {showPreview && (
-          <div className="flex-1 p-6">
-            <ResumePreview resume={resume} />
-          </div>
-        )}
-      </div>
+                {index + 1}
+              </div>
+              {index < pages.length - 1 && (
+                <div className={`flex-1 h-1 ${index < currentPage ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {page.content}
+
+        <div className="flex justify-between mt-6">
+          {currentPage > 0 ? (
+            <Button type="button" onClick={() => setCurrentPage(currentPage - 1)}>
+              Previous
+            </Button>
+          ) : (
+            <div className="flex-1" />
+          )}
+
+          {currentPage < pages.length - 1 ? (
+            <Button
+              type="button"
+              disabled={!page.isValid}
+              onClick={() => {
+                if (page.isValid) {
+                  setCurrentPage(currentPage + 1);
+                }
+              }}
+            >
+              Next
+            </Button>
+          ) : (
+            <Button type="button" disabled={!page.isValid} onClick={handleSave}>
+              Save Resume
+            </Button>
+          )}
+        </div>
+      </form>
+      {showPreview && (
+        <div className="flex-1 p-6 w-1/2">
+          <ResumePreview resume={resume} scale={0.85} />
+        </div>
+      )}
+    </div>
   );
 };
 
