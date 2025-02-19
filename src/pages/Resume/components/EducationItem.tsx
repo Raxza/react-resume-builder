@@ -35,12 +35,24 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
     onChange({ ...education, customDegree: value });
   };
 
+  const updateMajor = (value: string) => {
+    onChange({ ...education, major: value });
+  }
+
+  const updateScore = (value: string) => {
+    onChange({ ...education, score: value ?? null });
+  };
+
+  const updateMaxScore = (value: string) => {
+    onChange({ ...education, maxScore: value ?? null });
+  };
+
   const updateStartDate = (date: Date | null) => {
-    onChange({ ...education, startDate: date ? date.toISOString().slice(0, 7) : '' });
+    onChange({ ...education, startDate: date || new Date() });
   };
 
   const updateEndDate = (date: Date | null) => {
-    onChange({ ...education, endDate: date ? date.toISOString().slice(0, 7) : '' });
+    onChange({ ...education, endDate: date || new Date() });
   };
 
   const updateSummary = (value: string) => {
@@ -65,7 +77,10 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
   };
 
   const updateIsCurrent = (value: boolean) => {
-    onChange({ ...education, isCurrent: value });
+    if (value)
+      onChange({ ...education, isCurrent: value, endDate: null });
+    else
+      onChange({ ...education, isCurrent: value });
   };
 
   return (
@@ -93,28 +108,58 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
           </div>
           <div className="space-y-2">
             <Label>Degree</Label>
-            <Select
-              value={education.degree}
-              onValueChange={value => updateDegree(value)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select degree type" />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.values(DegreeType).map(degree => (
-                  <SelectItem key={degree} value={degree}>
-                    {degree}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {education.degree === DegreeType.Add && (
+            <div className='flex flex-row gap-2'>
+              <Select
+                value={education.degree || undefined}
+                onValueChange={value => updateDegree(value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select degree type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.values(DegreeType).map(degree => (
+                    <SelectItem key={degree} value={degree}>
+                      {degree}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {education.degree === DegreeType.Add && (
+                <Input
+                  value={education.customDegree}
+                  onChange={e => updateCustomDegree(e.target.value)}
+                  placeholder="Enter degree type"
+                />
+              )}
+            </div>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            <div className='col-span-2 space-y-2'>
+              <Label>Major</Label>
               <Input
-                value={education.customDegree}
-                onChange={e => updateCustomDegree(e.target.value)}
-                placeholder="Enter degree type"
+                value={education.major}
+                onChange={e => updateMajor(e.target.value)}
+                required
               />
-            )}
+            </div>
+            <div className='space-y-2'>
+              <Label>GPA/Score</Label>
+              <Input
+                type='number'
+                placeholder='example: 4.00'
+                value={education.score || undefined}
+                onChange={e => updateScore(e.target.value)}
+              />
+            </div>
+            <div className='space-y-2'>
+              <Label>Out Of</Label>
+              <Input
+                type='number'
+                placeholder='example: 4.00'
+                value={education.maxScore || undefined}
+                onChange={e => updateMaxScore(e.target.value)}
+              />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -122,7 +167,7 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
               <DatePicker
                 label="Start Date"
                 views={["year", "month"]}
-                value={education.startDate ? new Date(education.startDate) : null}
+                value={education.startDate}
                 onChange={updateStartDate}
                 disableFuture
               />
@@ -132,7 +177,7 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
               <DatePicker
                 label="End Date"
                 views={["year", "month"]}
-                value={education.endDate ? new Date(education.endDate) : null}
+                value={education.endDate}
                 disabled={education.isCurrent}
                 disableFuture
                 onChange={updateEndDate}

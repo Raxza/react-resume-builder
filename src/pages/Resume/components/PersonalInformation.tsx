@@ -2,16 +2,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Resume } from "@/types/Resume.ts";
+import { Textarea } from '@/components/ui/textarea';
 
 type Props = {
   name: string,
   email?: string,
   phone?: string,
   address?: string,
+  summary?: string,
   setResume: React.Dispatch<React.SetStateAction<Resume>>
 }
 
-const PersonalInformation = ({ name, email, phone, address, setResume }: Props) => {
+const PersonalInformation = ({ name, email, phone, address, summary, setResume }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -51,6 +53,16 @@ const PersonalInformation = ({ name, email, phone, address, setResume }: Props) 
             id="address"
             value={address}
             onChange={e => setResume(prev => ({ ...prev, address: e.target.value }))}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="summary">Summary</Label>
+          <Textarea
+            id="summary"
+            className='h-36'
+            value={summary}
+            onChange={e => setResume(prev => ({ ...prev, summary: e.target.value }))}
+            required
           />
         </div>
       </CardContent>
