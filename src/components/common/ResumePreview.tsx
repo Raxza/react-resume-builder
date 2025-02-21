@@ -36,9 +36,9 @@ const ResumePreview = ({ resume }: Props) => {
 
   return (
     <div>
-      <article className="mx-auto xl:m-0 aspect-[1/1.414] p-4 border-2 rounded-sm border-gray-200
+      <article className="mx-auto xl:m-0 aspect-[5/7] p-4 border-2 rounded-sm border-gray-200
       prose prose-hr:border prose-hr:border-gray-200 prose-hr:mb-2 prose-p:mt-0 prose-p:mb-4
-      text-xs md:text-base" >
+      md:text-base break-words dynamic-texts" >
         <h3 className="mb-0">{resume.name.toUpperCase()}</h3>
         {userInfo ? <span>{userInfo}</span> : null}
         {summary ? <p>{resume.summary}</p> : null}
@@ -49,7 +49,7 @@ const ResumePreview = ({ resume }: Props) => {
             {experiences.map((experience, index) => {
               const { company, position, summary, startDate, endDate, isCurrent, highlights } = experience;
               return (
-                <article key={index}>
+                <article key={index} className="pl-2">
                   <div className="flex justify-between">
                     <h5 className="font-bold">{company}</h5>
                     <span>
@@ -75,7 +75,7 @@ const ResumePreview = ({ resume }: Props) => {
             {educations.map((education, index) => {
               const { institution, startDate, endDate, isCurrent } = education;
               return (
-                <article key={index} >
+                <article key={index} className="pl-2">
                   <div className="flex justify-between">
                     <h5>{institution}</h5>
                     <p>
