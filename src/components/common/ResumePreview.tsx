@@ -36,7 +36,7 @@ const ResumePreview = ({ resume }: Props) => {
 
   return (
     <div>
-      <article className="aspect-[1/1.414] p-4 border-2 rounded-sm border-gray-200
+      <article className="mx-auto xl:m-0 aspect-[1/1.414] p-4 border-2 rounded-sm border-gray-200
       prose prose-hr:border prose-hr:border-gray-200 prose-hr:mb-2 prose-p:mt-0 prose-p:mb-4
       text-xs md:text-base" >
         <h3 className="mb-0">{resume.name.toUpperCase()}</h3>
