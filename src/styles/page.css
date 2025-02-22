@@ -1,16 +1,16 @@
 .dynamic-texts {
     h3 {
-        font-size: calc(0.9rem + 0.2cqw);
+        font-size: calc(0.8rem + 0.2cqw);
         line-height: 1.3;
     }
 
     h4 {
-        font-size: calc(0.8rem + 0.2cqw);
+        font-size: calc(0.7rem + 0.2cqw);
         line-height: 1.4;
     }
 
     h5 {
-        font-size: calc(0.7rem + 0.2cqw);
+        font-size: calc(0.6rem + 0.2cqw);
         line-height: 1.4;
     }
 
@@ -19,7 +19,7 @@
     em,
     strong,
     li {
-        font-size: calc(0.7rem + 0.2cqw);
+        font-size: calc(0.6rem + 0.2cqw);
         line-height: 1.5;
     }
 

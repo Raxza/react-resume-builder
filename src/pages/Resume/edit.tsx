@@ -46,7 +46,7 @@ const ResumeEdit = () => {
       }
     };
     fetchResume();
-  }, [id]);
+  }, [id, navigate]);
 
   const handleSave = async () => {
     const updatedResume = {
@@ -100,8 +100,8 @@ const ResumeEdit = () => {
   const page = pages[currentPage];
 
   return (
-    <div className="flex flex-col md:flex-row flex-wrap">
-      <form className="max-w-4xl p-6 space-y-6 flex-1 md:w-1/2">
+    <main className="flex flex-col xl:flex-row items-center xl:items-start justify-center gap-4 m-4 sm:mx-12">
+      <form className="w-full max-w-xl mx-auto">
         <ChevronLeftIcon className="h-10 w-10 cursor-pointer" onClick={() => navigate('/')} />
         <div className="flex justify-between items-center">
           <div className="space-y-2">
@@ -168,11 +168,11 @@ const ResumeEdit = () => {
         </div>
       </form>
       {showPreview && (
-        <div className="flex-1 p-6 w-full md:w-1/2">
+        <aside className="w-full max-w-xl mx-auto">
           <ResumePreview resume={resume} scale={0.85} />
-        </div>
+        </aside>
       )}
-    </div>
+    </main>
   );
 };
 

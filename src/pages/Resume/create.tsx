@@ -78,7 +78,7 @@ const ResumeCreate = () => {
 
   return (
     <main className="flex flex-col xl:flex-row items-center xl:items-start justify-center gap-4 m-4 sm:mx-12">
-      <form className="w-full max-w-xl">
+      <form className="w-full max-w-xl mx-auto">
         <ChevronLeftIcon className="h-10 w-10 cursor-pointer" onClick={() => navigate('/')} />
         <div className="flex justify-between items-center">
           <div className="space-y-2">
@@ -145,7 +145,7 @@ const ResumeCreate = () => {
         </div>
       </form>
       {showPreview && (
-        <aside className="w-full max-w-xl">
+        <aside className="w-full max-w-xl mx-auto">
           <ResumePreview resume={resume} scale={0.85} />
         </aside>
       )}

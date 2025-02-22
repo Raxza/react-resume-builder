@@ -19,7 +19,7 @@ const ResumeList = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <main className="max-w-4xl mx-auto p-6 space-y-6">
       <Button onClick={() => navigate('/resume/create')} variant="outline">
         Create Resume
       </Button>
@@ -39,7 +39,7 @@ const ResumeList = () => {
           </CardContent>
         </Card>
       ))}
-    </div>
+    </main>
   );
 };
 
