@@ -63,33 +63,6 @@ const ResumeEdit = () => {
     }
   };
 
-  // const handlePrint = () => {
-  //   const resPrev = resumePreviewRef.current;
-  //   if (resPrev) {
-  //     const resCopy = resPrev.children[0].cloneNode(true);
-  //     const newWin = window.open('', '', 'width=800, height=600');
-  //     if (newWin) {
-  //       const newDocs = newWin.document;
-
-  //       const head = newDocs.head;
-  //       head.innerHTML = document.head.innerHTML;
-
-  //       const body = newDocs.body;
-  //       const article = newDocs.createElement('article');
-  //       body.appendChild(article);
-  //       article.replaceWith(resCopy);
-  //       article.classList.add('max-w-full', 'w-[210mm]');
-  //       article.classList.remove('border-2', 'dynamic-texts');
-
-  //       newWin.document.close();
-  //       newWin.print();
-  //     }
-  //   } else {
-  //     console.error('Resume preview is not available for printing.');
-  //   }
-  // };
-
-
   if (!resume) {
     return <div>Loading...</div>;
   }
