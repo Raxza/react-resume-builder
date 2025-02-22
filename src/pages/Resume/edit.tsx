@@ -65,15 +65,46 @@ const ResumeEdit = () => {
   };
 
   const handlePrint = () => {
-    if (resumePreviewRef.current) {
-      const printContents = resumePreviewRef.current.innerHTML;
+    const resPrev = resumePreviewRef.current;
+    if (resPrev) {
+      const resArt = resPrev.children[1];
+      resArt.classList.add('max-w-full', 'prose-hr:border-2', 'print');
+      resArt.classList.remove('border-2');
+      const printContents = resPrev.innerHTML;
       const originalContents = document.body.innerHTML;
       document.body.innerHTML = printContents;
       window.print();
       document.body.innerHTML = originalContents;
-      window.location.reload(); // Reload to restore the original content
+      window.location.reload();
     }
   };
+
+  // const handlePrint = () => {
+  //   const resPrev = resumePreviewRef.current;
+  //   if (resPrev) {
+  //     const resCopy = resPrev.children[0].cloneNode(true);
+  //     const newWin = window.open('', '', 'width=800, height=600');
+  //     if (newWin) {
+  //       const newDocs = newWin.document;
+
+  //       const head = newDocs.head;
+  //       head.innerHTML = document.head.innerHTML;
+
+  //       const body = newDocs.body;
+  //       const article = newDocs.createElement('article');
+  //       body.appendChild(article);
+  //       article.replaceWith(resCopy);
+  //       article.classList.add('max-w-full', 'w-[210mm]');
+  //       article.classList.remove('border-2', 'dynamic-texts');
+
+  //       newWin.document.close();
+  //       newWin.print();
+  //     }
+  //   } else {
+  //     console.error('Resume preview is not available for printing.');
+  //   }
+  // };
+
 
   if (!resume) {
     return <div>Loading...</div>;
@@ -181,13 +212,13 @@ const ResumeEdit = () => {
         </div>
       </form>
       {showPreview && (
-        <aside className="w-full max-w-xl mx-auto" ref={resumePreviewRef}>
+        <aside className="w-full max-w-xl mx-auto relative" ref={resumePreviewRef}>
+          <Button type="button" onClick={handlePrint} className="absolute right-2 xl:right-4 rounded-none rounded-bl-3xl">
+            Print Resume
+          </Button>
           <ResumePreview resume={resume} scale={0.85} />
         </aside>
       )}
-      <Button type="button" onClick={handlePrint}>
-        Print Resume
-      </Button>
     </main>
   );
 };
