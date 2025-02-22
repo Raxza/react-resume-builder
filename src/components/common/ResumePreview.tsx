@@ -1,7 +1,9 @@
 // import { useRef } from "react";
 import { DegreeType, Resume } from "@/types/Resume";
 import { format } from "date-fns";
+import { useRef } from "react";
 import '@/styles/page.css';
+import { Button } from "../ui/button";
 
 type Props = {
   resume: Resume;
@@ -11,30 +13,53 @@ type Props = {
 const ResumePreview = ({ resume }: Props) => {
   const { email, phone, address, summary, experiences, educations } = resume;
   const userInfo = [phone, email, address].filter(Boolean).join(" | ");
+  const resumePreviewRef = useRef<HTMLDivElement>(null);
+
+  const handlePrint = () => {
+    const resPrev = resumePreviewRef.current;
+    if (resPrev) {
+      const resArt = resPrev;
+      resArt.classList.add('max-w-full', 'prose-hr:border-2', 'print');
+      resArt.classList.remove('border-2');
+      const printContents = resPrev.outerHTML;
+      const originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+      window.location.reload();
+    }
+  };
 
   return (
     <div>
-      <article className="printable mx-auto xl:m-0 aspect-[5/7] p-3 border-2 rounded-sm border-gray-200
-      prose prose-hr:border prose-hr:border-gray-200 prose-hr:mb-2 prose-p:mt-0 prose-p:mb-4
-      md:text-base break-words dynamic-texts" >
+      <Button type="button" onClick={handlePrint} className="absolute right-0 xl:right-4 rounded-none rounded-bl-3xl">
+        Print Resume
+      </Button>
+      <article id="resumePreview" ref={resumePreviewRef} className="mx-auto xl:m-0 aspect-[5/7] p-4 border-2 rounded-sm border-gray-200
+      prose prose-h4:mt-0 prose-hr:border prose-hr:border-gray-500 prose-hr:mb-2 prose-p:mt-0 prose-p:mb-4
+      prose-h
+      prose-ul:mt-0 prose-ol:mt-0 prose-ul:pl-2 prose-ol:pl-2
+      text-justify md:text-base break-words dynamic-texts" >
         <h3 className="mb-0">{resume.name.toUpperCase()}</h3>
-        {userInfo ? <span>{userInfo}</span> : null}
+        {userInfo ? <span className="text-gray-500">{userInfo}</span> : null}
         {summary ? <p>{resume.summary}</p> : null}
         {experiences.length ?
           <section>
             <h4>Work Experience</h4>
             <hr />
             {experiences.map((experience, index) => {
-              const { company, position, summary, startDate, endDate, isCurrent, highlights } = experience;
+              const { company, position, startDate, endDate, isCurrent, highlights } = experience;
               return (
                 <article key={index} className="pl-2">
                   <div className="flex justify-between">
-                    <h5 className="font-bold">{company}</h5>
+                    <div>
+                      <h5 className="font-bold">{company}</h5>
+                      <em>{position}</em>
+                    </div>
                     <span>
                       {startDate ? format(startDate, "MMM yyyy") : null} - {endDate ? format(endDate, "MMM yyyy") : isCurrent ? "Present" : ""}
                     </span>
                   </div>
-                  <em>{position}</em>
                   {/* <p>{summary}</p> */}
                   <ul>
                     {highlights.map((highlight, index) => (

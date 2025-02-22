@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { handleUpdateResume, handleGetResumeById } from '@/lib/IndexedDB/resumeStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeftIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 const ResumeEdit = () => {
@@ -34,7 +34,6 @@ const ResumeEdit = () => {
   const [showPreview, setShowPreview] = useState(true);
 
   const navigate = useNavigate();
-  const resumePreviewRef = useRef<HTMLDivElement>(null); // Add this ref
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -64,16 +63,32 @@ const ResumeEdit = () => {
     }
   };
 
-  const handlePrint = () => {
-    if (resumePreviewRef.current) {
-      const printContents = resumePreviewRef.current.innerHTML;
-      const originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
-      window.location.reload(); // Reload to restore the original content
-    }
-  };
+  // const handlePrint = () => {
+  //   const resPrev = resumePreviewRef.current;
+  //   if (resPrev) {
+  //     const resCopy = resPrev.children[0].cloneNode(true);
+  //     const newWin = window.open('', '', 'width=800, height=600');
+  //     if (newWin) {
+  //       const newDocs = newWin.document;
+
+  //       const head = newDocs.head;
+  //       head.innerHTML = document.head.innerHTML;
+
+  //       const body = newDocs.body;
+  //       const article = newDocs.createElement('article');
+  //       body.appendChild(article);
+  //       article.replaceWith(resCopy);
+  //       article.classList.add('max-w-full', 'w-[210mm]');
+  //       article.classList.remove('border-2', 'dynamic-texts');
+
+  //       newWin.document.close();
+  //       newWin.print();
+  //     }
+  //   } else {
+  //     console.error('Resume preview is not available for printing.');
+  //   }
+  // };
+
 
   if (!resume) {
     return <div>Loading...</div>;
@@ -181,13 +196,10 @@ const ResumeEdit = () => {
         </div>
       </form>
       {showPreview && (
-        <aside className="w-full max-w-xl mx-auto" ref={resumePreviewRef}>
+        <aside className="w-full max-w-xl mx-auto relative">
           <ResumePreview resume={resume} scale={0.85} />
         </aside>
       )}
-      <Button type="button" onClick={handlePrint}>
-        Print Resume
-      </Button>
     </main>
   );
 };
