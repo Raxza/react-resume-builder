@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { handleAddResume } from '@/lib/IndexedDB/resumeStore';
 import { useNavigate } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronLeftIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 const ResumeCreate = () => {
@@ -28,6 +28,7 @@ const ResumeCreate = () => {
   const [showPreview, setShowPreview] = useState(true);
 
   const navigate = useNavigate();
+  const resumePreviewRef = useRef<HTMLDivElement>(null); // Add this ref
 
   const handleSave = async () => {
     const updatedResume = {
@@ -40,6 +41,17 @@ const ResumeCreate = () => {
       navigate('/');
     } else {
       console.error('Error saving resume', result.data);
+    }
+  };
+
+  const handlePrint = () => {
+    if (resumePreviewRef.current) {
+      const printContents = resumePreviewRef.current.innerHTML;
+      const originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+      window.location.reload(); // Reload to restore the original content
     }
   };
 
@@ -145,10 +157,13 @@ const ResumeCreate = () => {
         </div>
       </form>
       {showPreview && (
-        <aside className="w-full max-w-xl mx-auto">
+        <aside className="w-full max-w-xl mx-auto" ref-={resumePreviewRef}>
           <ResumePreview resume={resume} scale={0.85} />
         </aside>
       )}
+      <Button type="button" onClick={handlePrint}>
+        Print Resume
+      </Button>
     </main>
   );
 };

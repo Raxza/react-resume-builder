@@ -12,31 +12,9 @@ const ResumePreview = ({ resume }: Props) => {
   const { email, phone, address, summary, experiences, educations } = resume;
   const userInfo = [phone, email, address].filter(Boolean).join(" | ");
 
-
-  // const containerRef = useRef<HTMLDivElement>(null);
-  // const pageRef = useRef<HTMLPreElement>(null);
-  // const [innerScale, setInnerScale] = useState(scale);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (containerRef.current && pageRef.current) {
-  //       const currContainerWidth = containerRef.current.clientWidth;
-  //       const currWrapperWidth = pageRef.current.clientWidth;
-  //       const scaleX = currContainerWidth / currWrapperWidth;
-  //       const newScale = Math.min(scaleX, scale);
-  //       setInnerScale(newScale);
-  //     }
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-  //   handleResize();
-
-  //   return () => window.removeEventListener("resize", handleResize);
-  // },[]);
-
   return (
     <div>
-      <article className="mx-auto xl:m-0 aspect-[5/7] p-4 border-2 rounded-sm border-gray-200
+      <article className="printable mx-auto xl:m-0 aspect-[5/7] p-3 border-2 rounded-sm border-gray-200
       prose prose-hr:border prose-hr:border-gray-200 prose-hr:mb-2 prose-p:mt-0 prose-p:mb-4
       md:text-base break-words dynamic-texts" >
         <h3 className="mb-0">{resume.name.toUpperCase()}</h3>
@@ -57,7 +35,7 @@ const ResumePreview = ({ resume }: Props) => {
                     </span>
                   </div>
                   <em>{position}</em>
-                  <p>{summary}</p>
+                  {/* <p>{summary}</p> */}
                   <ul>
                     {highlights.map((highlight, index) => (
                       <li key={index}>{highlight}</li>
@@ -77,10 +55,10 @@ const ResumePreview = ({ resume }: Props) => {
               return (
                 <article key={index} className="pl-2">
                   <div className="flex justify-between">
-                    <h5>{institution}</h5>
-                    <p>
+                    <h5 className="font-bold">{institution}</h5>
+                    <span>
                       {startDate ? format(startDate, "MMM yyyy") : null} - {endDate ? format(endDate, "MMM yyyy") : isCurrent ? "Present" : ""}
-                    </p>
+                    </span>
                   </div>
                   <em>
                     {education.degree !== DegreeType.Add ? education.degree : education.customDegree} {(education.degree !== DegreeType.Add || education.customDegree) && education.major && `in ${education.major}`}
