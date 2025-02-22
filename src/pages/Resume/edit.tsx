@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { handleUpdateResume, handleGetResumeById } from '@/lib/IndexedDB/resumeStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeftIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 const ResumeEdit = () => {
@@ -34,7 +34,6 @@ const ResumeEdit = () => {
   const [showPreview, setShowPreview] = useState(true);
 
   const navigate = useNavigate();
-  const resumePreviewRef = useRef<HTMLDivElement>(null); // Add this ref
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -61,21 +60,6 @@ const ResumeEdit = () => {
       navigate('/');
     } else {
       console.error('Error updating resume', result.data);
-    }
-  };
-
-  const handlePrint = () => {
-    const resPrev = resumePreviewRef.current;
-    if (resPrev) {
-      const resArt = resPrev.children[1];
-      resArt.classList.add('max-w-full', 'prose-hr:border-2', 'print');
-      resArt.classList.remove('border-2');
-      const printContents = resPrev.innerHTML;
-      const originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
-      window.location.reload();
     }
   };
 
@@ -212,10 +196,7 @@ const ResumeEdit = () => {
         </div>
       </form>
       {showPreview && (
-        <aside className="w-full max-w-xl mx-auto relative" ref={resumePreviewRef}>
-          <Button type="button" onClick={handlePrint} className="absolute right-2 xl:right-4 rounded-none rounded-bl-3xl">
-            Print Resume
-          </Button>
+        <aside className="w-full max-w-xl mx-auto relative">
           <ResumePreview resume={resume} scale={0.85} />
         </aside>
       )}
