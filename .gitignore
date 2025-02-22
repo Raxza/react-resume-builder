@@ -57,3 +57,5 @@ turbo/
 # Misc
 node_modules/.cache/
 .pnp.*
+pnpm-lock.yaml
+.gitignore
