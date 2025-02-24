@@ -58,7 +58,7 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
     if (value) {
       onChange({ ...experience, isCurrent: value, endDate: null });
     } else {
-    onChange({ ...experience, isCurrent: value });
+      onChange({ ...experience, isCurrent: value });
     }
   };
 
@@ -116,7 +116,7 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
                 <Input
                   type="checkbox"
                   checked={experience.isCurrent}
-                  onChange={e => 
+                  onChange={e =>
                     updateIsCurrent(e.target.checked)
                   }
                   className="h-4 w-4"

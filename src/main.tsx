@@ -14,7 +14,7 @@ initDB().then((success) => {
   // Render the app only after IndexedDB is initialized
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
-      <App />
+        <App />
     </StrictMode>
   );
 });
