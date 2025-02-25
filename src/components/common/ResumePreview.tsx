@@ -21,7 +21,7 @@ const ResumePreview = ({ resume }: Props) => {
       const resArt = resPrev;
       resArt.classList.add(
         'max-w-full', 'print', 'prose-hr:border-2', 'prose-h3:-mb-4', 'prose-h5:-mt-1', 'prose-h5:-mb-4', 'prose-hr:-mx-4', 'prose-p:-mt-2', 'prose-p:mb-2',
-        'prose-ul:-mt-2',
+        'prose-ul:-mt-2', 'bg-white'
       );
       resArt.classList.remove('border-2');
       const printContents = resArt.outerHTML;

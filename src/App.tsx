@@ -1,30 +1,23 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ResumeCreate from "@/pages/Resume/create.tsx";
+import Home from "./pages/Home";
 import ResumeList from "./pages/Resume";
-import ResumeEdit from "./pages/Resume/edit";
+import ResumeForm from "./pages/Resume/resume-form";
+import { ThemeProvider } from "@/components/theme-provider"
+import Navbar from "./components/common/NavBar";
 
 function App() {
-  // useEffect(() => {
-  //   initDB().then((success) => {
-  //     if (success) {
-  //       console.log("IndexedDB initialized successfully!");
-  //     } else {
-  //       console.error("Failed to initialize IndexedDB.");
-  //     }
-  //   });
-  // }, []);
-
-
   return (
-    <>
-        <Router>
-          <Routes>
-            <Route path="/" element={<ResumeList />} />
-            <Route path="/resume/create" element={<ResumeCreate />} />
-            <Route path="/resume/edit/:id" element={<ResumeEdit />} />
-          </Routes>
-        </Router>
-    </>
+    <ThemeProvider storageKey="vite-ui-theme">
+      <Navbar />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/list" element={<ResumeList />} />
+          <Route path="/resume/create" element={<ResumeForm />} />
+          <Route path="/resume/edit/:id" element={<ResumeForm />} />
+        </Routes>
+      </Router>
+    </ThemeProvider >
   )
 }
 
