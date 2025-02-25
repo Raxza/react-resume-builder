@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { handleAddResume } from '@/lib/IndexedDB/resumeStore';
 import { useNavigate } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ChevronLeftIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 const ResumeCreate = () => {
