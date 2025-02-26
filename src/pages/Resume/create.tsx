@@ -56,14 +56,14 @@ const ResumeCreate = () => {
       content: (
         <WorkExperience experiences={resume.experiences} setResume={setResume} />
       ),
-      isValid: resume.experiences.every(exp => exp.company && exp.position && exp.startDate && (exp.endDate || exp.isCurrent) && exp.summary)
+      isValid: resume.experiences.every(exp => exp.company && exp.position && exp.startDate && (exp.endDate || exp.isCurrent))
     },
     {
       title: "Education",
       content: (
         <EducationSection educations={resume.educations} setResume={setResume} />
       ),
-      isValid: resume.educations.every(edu => edu.institution && edu.degree && edu.startDate && (edu.endDate || edu.isCurrent) && edu.summary)
+      isValid: resume.educations.every(edu => edu.institution && edu.degree && edu.startDate && (edu.endDate || edu.isCurrent))
     },
     {
       title: "Additional Information",

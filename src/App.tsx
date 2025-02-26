@@ -4,9 +4,9 @@ import ResumeList from "./pages/Resume";
 import ResumeForm from "./pages/Resume/resume-form";
 import { ThemeProvider as CustomThemeProvider } from "@/components/theme-provider";
 import Navbar from "./components/common/NavBar";
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { useState } from 'react';
+// import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import { useState } from 'react';
 
 // Define the dark theme
 // const darkTheme = createTheme({

@@ -80,14 +80,14 @@ const ResumeEdit = () => {
       content: (
         <WorkExperience experiences={resume.experiences} setResume={setResume} />
       ),
-      isValid: resume.experiences.every(exp => exp.company && exp.position && exp.startDate && exp.summary)
+      isValid: resume.experiences.every(exp => exp.company && exp.position && exp.startDate)
     },
     {
       title: "Education",
       content: (
         <EducationSection educations={resume.educations} setResume={setResume} />
       ),
-      isValid: resume.educations.every(edu => edu.institution && edu.degree && edu.startDate && edu.summary)
+      isValid: resume.educations.every(edu => edu.institution && edu.degree && edu.startDate)
     },
     {
       title: "Additional Information",
