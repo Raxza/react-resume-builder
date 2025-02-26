@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Education, DegreeType } from "@/types/Resume.ts";
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { Textarea } from "@/components/ui/textarea.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { TrashIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
@@ -53,10 +52,6 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
 
   const updateEndDate = (date: Date | null) => {
     onChange({ ...education, endDate: date || new Date() });
-  };
-
-  const updateSummary = (value: string) => {
-    onChange({ ...education, summary: value });
   };
 
   const updateHighlight = (index: number, value: string) => {
@@ -192,14 +187,6 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
                 <Label>Currently studying here</Label>
               </div>
             </div>
-          </div>
-          <div className="space-y-2">
-            <Label>Summary</Label>
-            <Textarea
-              value={education.summary}
-              onChange={e => updateSummary(e.target.value)}
-              required
-            />
           </div>
           <div className="space-y-2 space-x-2">
             <Label>Highlights</Label>

@@ -169,7 +169,7 @@ const ResumeForm = () => {
         </div>
       </form>
       {showPreview && (
-        <aside className="w-full max-w-xl mx-auto relative dark:bg-white">
+        <aside className="w-full max-w-xl mx-auto relative">
           <ResumePreview resume={resume} scale={0.85} />
         </aside>
       )}

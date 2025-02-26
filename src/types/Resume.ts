@@ -19,7 +19,6 @@ export type Experience = {
   startDate: Date | null,
   endDate: Date | null,
   isCurrent?: boolean,
-  summary: string,
   highlights: string[],
 }
 
@@ -34,7 +33,6 @@ export type Education = {
   startDate: Date | null,
   endDate: Date | null,
   isCurrent?: boolean,
-  summary: string,
   highlights: string[],
 }
 
@@ -68,7 +66,6 @@ export const emptyExperience: Experience = {
   position: '',
   startDate: null,  
   endDate: null,
-  summary: '',
   highlights: [],
 };
 
@@ -82,7 +79,6 @@ export const emptyEducation: Education = {
   maxScore: null,
   startDate: null,
   endDate: null,
-  summary: '',
   highlights: [],
 };
 

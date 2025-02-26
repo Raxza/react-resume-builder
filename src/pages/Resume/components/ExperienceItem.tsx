@@ -33,10 +33,6 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
     onChange({ ...experience, endDate: date || new Date() });
   };
 
-  const updateSummary = (value: string) => {
-    onChange({ ...experience, summary: value });
-  };
-
   const updateHighlight = (index: number, value: string) => {
     const highlights = [...experience.highlights];
     highlights[index] = value;
@@ -99,8 +95,9 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
                 label="Start Date"
                 views={["year", "month"]}
                 value={experience.startDate}
-                onChange={updateStartDate}
+                maxDate={experience.endDate}
                 disableFuture
+                onChange={updateStartDate}
               />
             </div>
             <div className="space-y-2">
@@ -109,6 +106,7 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
                 views={["year", "month"]}
                 value={experience.endDate}
                 disabled={experience.isCurrent}
+                minDate={experience.startDate}
                 disableFuture
                 onChange={updateEndDate}
               />
@@ -124,14 +122,6 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
                 <Label>Currently working here</Label>
               </div>
             </div>
-          </div>
-          <div className="space-y-2">
-            <Label>Summary</Label>
-            <Textarea
-              value={experience.summary}
-              onChange={e => updateSummary(e.target.value)}
-              required
-            />
           </div>
           <div className="space-y-2 space-x-2">
             <Label>Highlights</Label>

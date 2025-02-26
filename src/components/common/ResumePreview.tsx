@@ -42,7 +42,8 @@ const ResumePreview = ({ resume }: Props) => {
       prose prose-h4:mt-0 prose-hr:border prose-hr:border-gray-500 prose-hr:mb-2 prose-p:mt-0 prose-p:mb-4
       prose-hr:-mx-1
       prose-ul:mt-0 prose-ol:mt-0 prose-ul:pl-4 prose-ol:pl-2
-      text-justify md:text-base break-words dynamic-texts" >
+      text-justify md:text-base break-words dynamic-texts
+      dark:bg-white" >
         <h3 className="mb-0">{resume.name.toUpperCase()}</h3>
         {userInfo ? <span className="text-gray-500">{userInfo}</span> : null}
         {summary ? <p>{resume.summary}</p> : null}
@@ -57,13 +58,14 @@ const ResumePreview = ({ resume }: Props) => {
                   <div className="flex justify-between">
                     <div>
                       <h5 className="font-bold">{company}</h5>
-                      <em>{position}</em>
+                      {company && <em>{position}</em>}
                     </div>
-                    <span>
-                      {startDate ? format(startDate, "MMM yyyy") : null} - {endDate ? format(endDate, "MMM yyyy") : isCurrent ? "Present" : ""}
-                    </span>
+                    {company &&
+                      <span>{startDate && format(startDate, "MMM yyyy")}
+                        {startDate && (endDate ? ` - ${format(endDate, "MMM yyyy")}` : isCurrent ? " - Present" : "")}
+                      </span>
+                    }
                   </div>
-                  {/* <p>{summary}</p> */}
                   <ul>
                     {highlights.map((highlight, index) => (
                       <li key={index}>{highlight}</li>
@@ -91,7 +93,8 @@ const ResumePreview = ({ resume }: Props) => {
                       </em>
                     </div>
                     <span>
-                      {startDate ? format(startDate, "MMM yyyy") : null} - {endDate ? format(endDate, "MMM yyyy") : isCurrent ? "Present" : ""}
+                      {startDate && format(startDate, "MMM yyyy")}
+                      {startDate && (endDate ? ` - ${format(endDate, "MMM yyyy")}` : isCurrent ? " - Present" : "")}
                     </span>
                   </div>
                   <ul>
