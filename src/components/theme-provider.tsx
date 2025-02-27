@@ -1,7 +1,7 @@
 import { ThemeProviderContext } from "@/contexts/ThemeProviderState"
 import { useEffect, useState } from "react"
-// import { createTheme, ThemeProvider as MuiThemeProdiver } from "@mui/system"
-// import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles"
+import CssBaseline from '@mui/material/CssBaseline';
 
 type Theme = "dark" | "light" | "system"
 
@@ -11,25 +11,30 @@ type ThemeProviderProps = {
   storageKey?: string
 }
 
-// Define the dark theme
-// const darkTheme = createTheme({
-//   palette: {
-//     mode: 'dark',
-//     background: {
-//       default: 'hsl(222.2, 84%, 4.9%)',
-//       paper: 'hsl(222.2, 84%, 4.9%)',
-//     },
-//     text: {
-//       primary: 'hsl(210, 40%, 98%)',
-//     },
-//     primary: {
-//       main: 'hsl(217.2, 91.2%, 59.8%)',
-//     },
-//     secondary: {
-//       main: 'hsl(217.2, 32.6%, 17.5%)',
-//     },
-//   },
-// });
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      default: 'hsl(222.2, 84%, 4.9%)',
+      paper: 'hsl(222.2, 84%, 4.9%)',
+    },
+    text: {
+      primary: 'hsl(210, 40%, 98%)',
+    },
+    primary: {
+      main: 'hsl(217.2, 91.2%, 59.8%)',
+    },
+    secondary: {
+      main: 'hsl(217.2, 32.6%, 17.5%)',
+    },
+  },
+});
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
 
 export function ThemeProvider({
   children,
@@ -40,7 +45,8 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
-  // const [_, setIsMuiDarkTheme] = useState(true);
+
+  const [muiTheme, setMuiTheme] = useState(lightTheme);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -54,12 +60,12 @@ export function ThemeProvider({
         : "light";
 
       root.classList.add(systemTheme);
-      // setIsMuiDarkTheme(systemTheme === "dark");
+      setMuiTheme(systemTheme === "dark" ? darkTheme : lightTheme);
       return;
     }
 
     root.classList.add(theme);
-    // setIsMuiDarkTheme(theme === "dark");
+    setMuiTheme(theme === "dark" ? darkTheme : lightTheme);
   }, [theme])
 
   const value = {
@@ -72,10 +78,10 @@ export function ThemeProvider({
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
-      {/* <MuiThemeProdiver theme={isMuiDarkTheme ? darkTheme : createTheme()}>
-        <CssBaseline /> */}
+      <MuiThemeProvider theme={muiTheme}>
+        <CssBaseline />
         {children}
-      {/* </MuiThemeProdiver> */}
+      </MuiThemeProvider>
     </ThemeProviderContext.Provider>
   )
 }
