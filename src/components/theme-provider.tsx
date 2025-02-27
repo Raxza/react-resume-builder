@@ -1,35 +1,55 @@
 import { ThemeProviderContext } from "@/contexts/ThemeProviderState"
 import { useEffect, useState } from "react"
-// import { createTheme, ThemeProvider as MuiThemeProdiver } from "@mui/system"
-// import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider as MuiThemeProdiver } from "@mui/system"
 
 type Theme = "dark" | "light" | "system"
-
 type ThemeProviderProps = {
   children: React.ReactNode
   defaultTheme?: Theme
   storageKey?: string
 }
 
-// Define the dark theme
-// const darkTheme = createTheme({
-//   palette: {
-//     mode: 'dark',
-//     background: {
-//       default: 'hsl(222.2, 84%, 4.9%)',
-//       paper: 'hsl(222.2, 84%, 4.9%)',
-//     },
-//     text: {
-//       primary: 'hsl(210, 40%, 98%)',
-//     },
-//     primary: {
-//       main: 'hsl(217.2, 91.2%, 59.8%)',
-//     },
-//     secondary: {
-//       main: 'hsl(217.2, 32.6%, 17.5%)',
-//     },
-//   },
-// });
+const rrbTheme = createTheme({
+  palette: {
+    background: {
+      default: 'hsl(var(--background))',
+      paper: 'hsl(var(--background))'
+    },
+    text: {
+      primary: 'hsl(var(--foreground))',
+      disabled: 'hsl(var(--muted-foreground))'
+    },
+    primary: {
+      main: 'hsl(var(--primary))',
+    },
+    secondary: {
+      main: 'hsl(var(--secondary))',
+    },
+  },
+  components: {
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: 'hsl(var(--foreground))',
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: 'inherit',
+        }
+      }
+    }
+  }
+})
 
 export function ThemeProvider({
   children,
@@ -40,11 +60,8 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
-  // const [_, setIsMuiDarkTheme] = useState(true);
-
   useEffect(() => {
     const root = window.document.documentElement;
-
     root.classList.remove("light", "dark");
 
     if (theme === "system") {
@@ -54,12 +71,10 @@ export function ThemeProvider({
         : "light";
 
       root.classList.add(systemTheme);
-      // setIsMuiDarkTheme(systemTheme === "dark");
       return;
     }
 
     root.classList.add(theme);
-    // setIsMuiDarkTheme(theme === "dark");
   }, [theme])
 
   const value = {
@@ -72,9 +87,8 @@ export function ThemeProvider({
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
-      {/* <MuiThemeProdiver theme={isMuiDarkTheme ? darkTheme : createTheme()}>
-        <CssBaseline /> */}
-        {children}
+      {/* <MuiThemeProdiver theme={rrbTheme}> */}
+      {children}
       {/* </MuiThemeProdiver> */}
     </ThemeProviderContext.Provider>
   )
