@@ -16,6 +16,7 @@ export type Experience = {
   id: number,
   company: string,
   position: string,
+  location?: string,
   startDate: Date | null,
   endDate: Date | null,
   isCurrent?: boolean,
@@ -25,6 +26,7 @@ export type Experience = {
 export type Education = {
   id: number,
   institution: string,
+  location?: string,
   degree: DegreeType | null,
   customDegree: string,
   major: string,

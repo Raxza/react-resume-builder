@@ -52,13 +52,15 @@ const ResumePreview = ({ resume }: Props) => {
             <h4>Work Experience</h4>
             <hr />
             {experiences.map((experience, index) => {
-              const { company, position, startDate, endDate, isCurrent, highlights } = experience;
+              const { company, location, position, startDate, endDate, isCurrent, highlights } = experience;
               return (
                 <article key={index} className="pl-2">
                   <div className="flex justify-between">
                     <div>
-                      <h5 className="font-bold">{company}</h5>
-                      {company && <em>{position}</em>}
+                      <h5 className="font-bold inline">{company}</h5>
+                      {location &&
+                        <h5 className="font-thin text-gray-500 ps-2 inline">{location}</h5>
+                      }
                     </div>
                     {company &&
                       <span>{startDate && format(startDate, "MMM yyyy")}
@@ -66,6 +68,9 @@ const ResumePreview = ({ resume }: Props) => {
                       </span>
                     }
                   </div>
+                  {company &&
+                    <div><em>{position}</em></div>
+                  }
                   <ul>
                     {highlights.map((highlight, index) => (
                       <li key={index}>{highlight}</li>
@@ -81,21 +86,26 @@ const ResumePreview = ({ resume }: Props) => {
             <h4>Education</h4>
             <hr />
             {educations.map((education, index) => {
-              const { institution, startDate, endDate, isCurrent } = education;
+              const { institution, location, startDate, endDate, isCurrent } = education;
               return (
                 <article key={index} className="pl-2">
                   <div className="flex justify-between">
                     <div>
-                      <h5 className="font-bold">{institution}</h5>
-                      <em>
-                        {education.degree !== DegreeType.Add ? education.degree : education.customDegree} {(education.degree !== DegreeType.Add || education.customDegree) && education.major && `in ${education.major}`}
-                        {education.score && ` (${education.score}${education.maxScore ? `/${education.maxScore})` : ")"}`}
-                      </em>
+                      <h5 className="font-bold inline">{institution}</h5>
+                      {location &&
+                        <h5 className="font-thin text-gray-500 ps-2 inline">{location}</h5>
+                      }
                     </div>
                     <span>
                       {startDate && format(startDate, "MMM yyyy")}
                       {startDate && (endDate ? ` - ${format(endDate, "MMM yyyy")}` : isCurrent ? " - Present" : "")}
                     </span>
+                  </div>
+                  <div>
+                    <em>
+                      {education.degree !== DegreeType.Add ? education.degree : education.customDegree} {(education.degree !== DegreeType.Add || education.customDegree) && education.major && `in ${education.major}`}
+                      {education.score && ` (${education.score}${education.maxScore ? `/${education.maxScore})` : ")"}`}
+                    </em>
                   </div>
                   <ul>
                     {education.highlights.map((highlight, index) => (

@@ -24,6 +24,10 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
     onChange({ ...experience, position: value });
   };
 
+  const updateLocation = (value: string) => {
+    onChange({ ...experience, location: value });
+  }
+
   const updateStartDate = (date: Date | null) => {
     onChange({ ...experience, startDate: date || new Date() });
   };
@@ -80,6 +84,7 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
               required
             />
           </div>
+          <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Position</Label>
             <Input
@@ -87,6 +92,15 @@ const ExperienceItem = ({ experience, index, onChange, onRemove }: Props) => {
               onChange={e => updatePosition(e.target.value)}
               required
             />
+          </div>
+          <div className="space-y-2">
+            <Label>Location</Label>
+            <Input
+              value={experience.location}
+              onChange={e => updateLocation(e.target.value)}
+              required
+            />
+          </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">

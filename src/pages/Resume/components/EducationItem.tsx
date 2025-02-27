@@ -30,6 +30,10 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
     }
   };
 
+  const updateLocation = (value: string) => {
+    onChange({ ...education, location: value });
+  }
+
   const updateCustomDegree = (value: string) => {
     onChange({ ...education, customDegree: value });
   };
@@ -101,6 +105,7 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
               required
             />
           </div>
+          <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Degree</Label>
             <div className='flex flex-row gap-2'>
@@ -127,6 +132,15 @@ const EducationItem = ({ education, index, onChange, onRemove }: Props) => {
                 />
               )}
             </div>
+          </div>
+          <div className="space-y-2">
+            <Label>Location</Label>
+            <Input
+              value={education.location}
+              onChange={e => updateLocation(e.target.value)}
+              required
+            />
+          </div>
           </div>
           <div className="grid grid-cols-4 gap-2">
             <div className='col-span-2 space-y-2'>
