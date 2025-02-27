@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/util/button-variants"
 import { Link } from "react-router-dom"
 import { Plus } from "lucide-react"
 import { motion } from 'framer-motion'

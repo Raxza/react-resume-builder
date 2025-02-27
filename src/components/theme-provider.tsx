@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { ThemeProviderContext } from "@/contexts/ThemeProviderState"
+import { useEffect, useState } from "react"
 // import { createTheme, ThemeProvider as MuiThemeProdiver } from "@mui/system"
 // import CssBaseline from '@mui/material/CssBaseline';
 
@@ -9,18 +10,6 @@ type ThemeProviderProps = {
   defaultTheme?: Theme
   storageKey?: string
 }
-
-type ThemeProviderState = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
-}
-
-const initialState: ThemeProviderState = {
-  theme: "system",
-  setTheme: () => null,
-}
-
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 // Define the dark theme
 // const darkTheme = createTheme({
@@ -51,7 +40,7 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
-  const [_, setIsMuiDarkTheme] = useState(true);
+  // const [_, setIsMuiDarkTheme] = useState(true);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -65,12 +54,12 @@ export function ThemeProvider({
         : "light";
 
       root.classList.add(systemTheme);
-      setIsMuiDarkTheme(systemTheme === "dark");
+      // setIsMuiDarkTheme(systemTheme === "dark");
       return;
     }
 
     root.classList.add(theme);
-    setIsMuiDarkTheme(theme === "dark");
+    // setIsMuiDarkTheme(theme === "dark");
   }, [theme])
 
   const value = {
@@ -89,13 +78,4 @@ export function ThemeProvider({
       {/* </MuiThemeProdiver> */}
     </ThemeProviderContext.Provider>
   )
-}
-
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext)
-
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
-
-  return context
 }

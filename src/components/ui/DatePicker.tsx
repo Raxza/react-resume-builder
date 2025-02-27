@@ -1,9 +1,12 @@
 import { DatePicker as MuiDatePicker, LocalizationProvider, DatePickerProps } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 
-type Props = DatePickerProps<any>;
+interface Props extends Omit<DatePickerProps<Date>, 'minDate' | 'maxDate'> {
+  minDate?: Date | null;
+  maxDate?: Date | null;
+}
 
-const DatePicker = (props: Props) => {
+const DatePicker = ({minDate, maxDate, ...props}: Props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <MuiDatePicker
@@ -15,6 +18,8 @@ const DatePicker = (props: Props) => {
             classes: { root: 'h-9 border border-input shadow-sm' }
           }
         }}
+        minDate={minDate || undefined}
+        maxDate={maxDate || undefined}
         {...props}
         // className="flex h-9 w-full rounded-md"
         // views={["year", "month"]}

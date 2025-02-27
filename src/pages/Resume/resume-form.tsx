@@ -1,5 +1,5 @@
 import { Resume } from "@/types/Resume.ts";
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import PersonalInformation from './components/PersonalInformation';
 import WorkExperience from './components/WorkExperience';
 import EducationSection from './components/EducationSection';
@@ -11,6 +11,7 @@ import ResumePreview from '@/components/common/ResumePreview';
 import { useEffect, useState } from "react";
 import { ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { buttonVariants } from "@/components/ui/util/button-variants";
 
 const ResumeForm = () => {
   const { id } = useParams();
