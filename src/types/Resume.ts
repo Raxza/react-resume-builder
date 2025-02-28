@@ -58,8 +58,8 @@ export enum ResumeOtherType {
   Interest = 'Interest',
   Language = 'Language',
   Skill = 'Skill',
-  Education = 'Education',
-  Experience = 'Experience',
+  Certification = 'Certification',
+  Project = 'Project',
 }
 
 export const emptyExperience: Experience = {
@@ -86,6 +86,6 @@ export const emptyEducation: Education = {
 
 export const emptyOther: Other = {
   id: 0,
-  type: ResumeOtherType.Reference,
+  type: ResumeOtherType.Skill,
   value: '',
 };
