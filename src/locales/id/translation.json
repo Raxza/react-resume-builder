@@ -1,0 +1,90 @@
+{
+  "common": {
+    "add": "Tambah",
+    "edit": "Ubah",
+    "delete": "Hapus",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya",
+    "print": "Cetak Resume"
+  },
+  "nav": {
+    "home": "Beranda",
+    "create": "Buat Resume",
+    "language": "Bahasa"
+  },
+  "home": {
+    "title": "Pembuat Resume React",
+    "subtitle": "Buat Resume Sempurna Anda dengan Mudah",
+    "description": "Buat resume profesional dan personal dalam hitungan menit dengan React Resume Builder! Tanpa ribet. Tanpa template. Hanya alat yang cepat, intuitif, dan mudah digunakan untuk menyiapkan resume Anda menuju kesuksesan!",
+    "createdResumes": "Resume yang Dibuat"
+  },
+  "resume": {
+    "personal": {
+      "title": "Informasi Pribadi",
+      "name": "Nama",
+      "email": "Email",
+      "phone": "Telepon",
+      "address": "Alamat",
+      "summary": "Ringkasan"
+    },
+    "experience": {
+      "title": "Pengalaman Kerja",
+      "company": "Perusahaan",
+      "position": "Jabatan",
+      "location": "Lokasi",
+      "startDate": "Tanggal Mulai",
+      "endDate": "Tanggal Selesai",
+      "current": "Masih bekerja di sini",
+      "highlights": "Highlight"
+    },
+    "education": {
+      "title": "Pendidikan",
+      "institution": "Institusi",
+      "degree": "Gelar",
+      "major": "Jurusan",
+      "score": "Nilai",
+      "maxScore": "Nilai Maksimum",
+      "current": "Masih belajar di sini"
+    },
+    "additional": {
+      "title": "Informasi Tambahan",
+      "type": "Tipe",
+      "value": "Nilai"
+    },
+    "form": {
+      "title": "Judul Resume",
+      "saveResume": "Simpan Resume",
+      "updateResume": "Perbarui Resume",
+      "addExperience": "Tambah Pengalaman",
+      "addEducation": "Tambah Pendidikan",
+      "addOther": "Tambah Informasi Lain",
+      "preview": "Pratinjau",
+      "hidePreview": "Sembunyikan Pratinjau",
+      "loading": "Memuat...",
+      "validation": {
+        "required": "Bagian ini wajib diisi",
+        "invalidEmail": "Alamat email tidak valid",
+        "invalidPhone": "Nomor telepon tidak valid"
+      }
+    },
+    "other": {
+      "reference": "Referensi",
+      "interest": "Minat",
+      "language": "Bahasa",
+      "skill": "Keahlian",
+      "certification": "Sertifikasi",
+      "project": "Proyek"
+    }
+  },
+  "components": {
+    "datePicker": {
+      "select": "Pilih tanggal",
+      "present": "Sekarang"
+    },
+    "preview": {
+      "scale": "Skala"
+    }
+  }
+}

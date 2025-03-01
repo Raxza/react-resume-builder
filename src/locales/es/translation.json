@@ -1,0 +1,90 @@
+{
+  "common": {
+    "add": "Añadir",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "print": "Imprimir Currículum"
+  },
+  "nav": {
+    "home": "Inicio",
+    "create": "Crear Currículum",
+    "language": "Idioma"
+  },
+  "home": {
+    "title": "Creador de Currículum React",
+    "subtitle": "Crea tu Currículum Perfecto con Facilidad",
+    "description": "¡Crea un currículum profesional y personalizado en minutos con React Resume Builder! Sin complicaciones. Sin plantillas. ¡Solo una herramienta rápida, intuitiva y fácil de usar para tener tu currículum listo para el éxito!",
+    "createdResumes": "Currículums Creados"
+  },
+  "resume": {
+    "personal": {
+      "title": "Información Personal",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "summary": "Resumen"
+    },
+    "experience": {
+      "title": "Experiencia Laboral",
+      "company": "Empresa",
+      "position": "Cargo",
+      "location": "Ubicación",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de finalización",
+      "current": "Trabajo actual",
+      "highlights": "Aspectos destacados"
+    },
+    "education": {
+      "title": "Educación",
+      "institution": "Institución",
+      "degree": "Título",
+      "major": "Especialidad",
+      "score": "Calificación",
+      "maxScore": "Calificación máxima",
+      "current": "Estudiando actualmente"
+    },
+    "additional": {
+      "title": "Información Adicional",
+      "type": "Tipo",
+      "value": "Valor"
+    },
+    "form": {
+      "title": "Título del Currículum",
+      "saveResume": "Guardar Currículum",
+      "updateResume": "Actualizar Currículum",
+      "addExperience": "Añadir Experiencia",
+      "addEducation": "Añadir Educación",
+      "addOther": "Añadir Otra Información",
+      "preview": "Vista Previa",
+      "hidePreview": "Ocultar Vista Previa",
+      "loading": "Cargando...",
+      "validation": {
+        "required": "Este campo es obligatorio",
+        "invalidEmail": "Dirección de correo inválida",
+        "invalidPhone": "Número de teléfono inválido"
+      }
+    },
+    "other": {
+      "reference": "Referencia",
+      "interest": "Interés",
+      "language": "Idioma",
+      "skill": "Habilidad",
+      "certification": "Certificación",
+      "project": "Proyecto"
+    }
+  },
+  "components": {
+    "datePicker": {
+      "select": "Seleccionar fecha",
+      "present": "Presente"
+    },
+    "preview": {
+      "scale": "Escala"
+    }
+  }
+}

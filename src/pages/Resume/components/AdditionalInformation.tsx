@@ -4,6 +4,7 @@ import OtherItem from './OtherItem';
 import { Other, emptyOther, Resume } from "@/types/Resume.ts";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   others: Other[],
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const AdditionalInformation = ({ others, setResume }: Props) => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState<number | null>(others.length > 0 ? 0 : null);
 
   const addOther = () => {
@@ -39,7 +41,7 @@ const AdditionalInformation = ({ others, setResume }: Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Additional Information</CardTitle>
+        <CardTitle>{t('resume.additional.title')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <AnimatePresence initial={false}>
@@ -63,7 +65,7 @@ const AdditionalInformation = ({ others, setResume }: Props) => {
           ))}
         </AnimatePresence>
         <Button type="button" onClick={addOther} variant="outline">
-          Add Other Information
+          {t('resume.form.addOther')}
         </Button>
       </CardContent>
     </Card>

@@ -1,0 +1,90 @@
+{
+  "common": {
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "next": "Next",
+    "previous": "Previous",
+    "print": "Print Resume"
+  },
+  "nav": {
+    "home": "Home",
+    "create": "Create Resume",
+    "language": "Language"
+  },
+  "home": {
+    "title": "React Resume Builder",
+    "subtitle": "Create Your Perfect Resume with Ease",
+    "description": "Build a professional, tailored resume in minutes with React Resume Builder! No more hassle. No more templates. Just a fast, intuitive, and easy-to-use tool to get your resume ready for success!",
+    "createdResumes": "Created Resumes"
+  },
+  "resume": {
+    "personal": {
+      "title": "Personal Information",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "summary": "Summary"
+    },
+    "experience": {
+      "title": "Work Experience",
+      "company": "Company",
+      "position": "Position",
+      "location": "Location",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "current": "Currently working here",
+      "highlights": "Highlights"
+    },
+    "education": {
+      "title": "Education",
+      "institution": "Institution",
+      "degree": "Degree",
+      "major": "Major",
+      "score": "Score",
+      "maxScore": "Maximum Score",
+      "current": "Currently studying here"
+    },
+    "additional": {
+      "title": "Additional Information",
+      "type": "Type",
+      "value": "Value"
+    },
+    "form": {
+      "title": "Resume Title",
+      "saveResume": "Save Resume",
+      "updateResume": "Update Resume",
+      "addExperience": "Add Experience",
+      "addEducation": "Add Education",
+      "addOther": "Add Other Information",
+      "preview": "Preview",
+      "hidePreview": "Hide Preview",
+      "loading": "Loading...",
+      "validation": {
+        "required": "This field is required",
+        "invalidEmail": "Invalid email address",
+        "invalidPhone": "Invalid phone number"
+      }
+    },
+    "other": {
+      "reference": "Reference",
+      "interest": "Interest",
+      "language": "Language",
+      "skill": "Skill",
+      "certification": "Certification",
+      "project": "Project"
+    }
+  },
+  "components": {
+    "datePicker": {
+      "select": "Select date",
+      "present": "Present"
+    },
+    "preview": {
+      "scale": "Scale"
+    }
+  }
+}
