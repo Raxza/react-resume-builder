@@ -11,7 +11,7 @@ type Props = {
 };
 
 const ResumePreview = ({ resume }: Props) => {
-  const { email, phone, address, summary, experiences, educations } = resume;
+  const { email, phone, address, summary, experiences, educations, others } = resume;
   const userInfo = [phone, email, address].filter(Boolean).join(" | ");
   const resumePreviewRef = useRef<HTMLDivElement>(null);
 
@@ -20,22 +20,60 @@ const ResumePreview = ({ resume }: Props) => {
     if (resPrev) {
       const resArt = resPrev;
       resArt.classList.add(
-        'max-w-full', 'print', 'prose-hr:border-2', 'prose-h3:-mb-4', 'prose-h5:-mt-1', 'prose-h5:-mb-4', 'prose-hr:-mx-4', 'prose-p:-mt-2', 'prose-p:mb-2',
-        'prose-ul:-mt-2', 'bg-white'
+        'max-w-full', 'print', 
+      //   'prose-h3:-mb-4', 'prose-h5:-mt-1', 'prose-h5:-mb-4', 
+      //   'prose-p:-mt-2', 'prose-p:mb-2',
+      //   'prose-em:-mt-2',
+      //   'prose-hr:-mb-1', 'prose-hr:border-2', 'prose-hr:-mx-4',
+      //   'prose-ul:-mt-2', 'bg-white'
       );
-      resArt.classList.remove('border-2');
-      const printContents = resArt.outerHTML;
-      const originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
-      window.location.reload();
+      // resArt.classList.add(
+      //   'max-w-full', 'print',
+      //   'prose-h3:-mb-4', 'prose-h5:-mb-5',
+      //   'prose-em:-mt-4',
+      //   'prose-hr:-mb-1',
+      // );
+      // resArt.classList.remove('border-2', 'prose-hr:bv-2', 'prose-p:mt-0', 'prose-p:mb-4');
+      resArt.classList.remove('border-2')
+
+      // Get all stylesheet links from the current document
+      const styleSheets = Array.from(document.styleSheets);
+      let styles = '';
+      styleSheets.forEach((sheet) => {
+        try {
+          const rules = sheet.cssRules || sheet.rules;
+          for (let rule of rules) {
+            styles += rule.cssText;
+          }
+        } catch (e) {
+          console.warn('Could not load stylesheet', e);
+        }
+      });
+
+      // Create new window with content
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(`
+          <html>
+            <head>
+              <style>${styles}</style>
+            </head>
+            <body>
+              ${resArt.outerHTML}
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+      }
     }
   };
 
   return (
     <div>
-      <Button type="button" onClick={handlePrint} className="absolute right-0 xl:right-4 rounded-none rounded-bl-3xl">
+      <Button type="button" onClick={handlePrint} className="absolute right-0 rounded-none rounded-bl-3xl">
         Print Resume
       </Button>
       <article id="resumePreview" ref={resumePreviewRef} className="mx-auto xl:m-0 aspect-[5/7] p-4 border-2 rounded-sm border-gray-200
@@ -54,12 +92,12 @@ const ResumePreview = ({ resume }: Props) => {
             {experiences.map((experience, index) => {
               const { company, location, position, startDate, endDate, isCurrent, highlights } = experience;
               return (
-                <article key={index} className="pl-2">
-                  <div className="flex justify-between">
+                <article key={"exp" + index} className="pl-2">
+                  <div className="flex justify-between items-center">
                     <div>
                       <h5 className="font-bold inline">{company}</h5>
                       {location &&
-                        <h5 className="font-thin text-gray-500 ps-2 inline">{location}</h5>
+                        <p className="text-gray-500 ps-1 inline">{location}</p>
                       }
                     </div>
                     {company &&
@@ -69,7 +107,7 @@ const ResumePreview = ({ resume }: Props) => {
                     }
                   </div>
                   {company &&
-                    <div><em>{position}</em></div>
+                    <em>{position}</em>
                   }
                   <ul>
                     {highlights.map((highlight, index) => (
@@ -88,12 +126,12 @@ const ResumePreview = ({ resume }: Props) => {
             {educations.map((education, index) => {
               const { institution, location, startDate, endDate, isCurrent } = education;
               return (
-                <article key={index} className="pl-2">
-                  <div className="flex justify-between">
+                <article key={"edu" + index} className="pl-2">
+                  <div className="flex justify-between items-center">
                     <div>
                       <h5 className="font-bold inline">{institution}</h5>
                       {location &&
-                        <h5 className="font-thin text-gray-500 ps-2 inline">{location}</h5>
+                        <p className="text-gray-500 ps-1 inline">{location}</p>
                       }
                     </div>
                     <span>
@@ -115,8 +153,27 @@ const ResumePreview = ({ resume }: Props) => {
                 </article>
               )
             })}
-          </section> : null
-        }
+          </section>
+          : null}
+        {others.length ?
+          <section>
+            <h4>Skills, Achievements, & Other Experience</h4>
+            <hr />
+            <article className="pl-2">
+            <ul>
+              {others.map((other, index) => {
+                const { type, value } = other;
+                return (
+                  <li key={"other" + index}>
+                      <strong>{type}: </strong> {/*This text is smaller than the {value} below*/}
+                      {value}
+                  </li>
+                )
+              })}
+            </ul>
+            </article>
+          </section>
+          : null}
       </article>
     </div>
   );

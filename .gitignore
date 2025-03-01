@@ -38,6 +38,7 @@ jspm_packages/
 # Editor & IDE files
 .vscode/
 !.vscode/extensions.json
+.github/
 .idea/
 *.suo
 *.ntvs*

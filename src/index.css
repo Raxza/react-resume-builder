@@ -101,6 +101,10 @@
 
   .print {
     font-size: 1.7rem;
+    
+    .text-gray-500 {
+      color: #6b7280 !important;
+    }
   }
 }
 
