@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { buttonVariants } from "@/components/ui/util/button-variants";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ResumeForm = () => {
   const { id } = useParams();
@@ -94,8 +95,16 @@ const ResumeForm = () => {
   const page = pages[currentPage];
 
   return (
-    <main className="py-4 pt-14 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-4 sm:mx-12">
-      <form className="w-full max-w-xl mx-auto">
+    <main className="py-4 pt-14 grid xl:grid-cols-2 items-start justify-center gap-4 sm:mx-12 relative overflow-hidden">
+      <motion.form 
+        layout="position"
+        transition={{ 
+          duration: 0.5,
+          type: "spring",
+          bounce: 0.1
+        }}
+        className={`w-full max-w-xl mx-auto ${showPreview ? '' : 'xl:col-span-2 xl:mx-auto'}`}
+      >
         <header className="flex gap-4" aria-labelledby="Form Header">
           <Input
             type="text"
@@ -168,12 +177,25 @@ const ResumeForm = () => {
             </Button>
           )}
         </div>
-      </form>
-      {showPreview && (
-        <aside className="w-full max-w-xl mx-auto relative">
-          <ResumePreview resume={resume} scale={0.85} />
-        </aside>
-      )}
+      </motion.form>
+      
+      <AnimatePresence mode="popLayout">
+        {showPreview && (
+          <motion.aside 
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ 
+              duration: 0.5,
+              type: "spring",
+              bounce: 0.1
+            }}
+            className="w-full max-w-xl relative"
+          >
+            <ResumePreview resume={resume} scale={0.85} />
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </main>
   );
 };
