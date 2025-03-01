@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { Other, ResumeOtherType } from "@/types/Resume.ts";
 import { Label } from "@/components/ui/label.tsx";
-import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { TrashIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";

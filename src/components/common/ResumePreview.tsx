@@ -42,7 +42,7 @@ const ResumePreview = ({ resume }: Props) => {
       styleSheets.forEach((sheet) => {
         try {
           const rules = sheet.cssRules || sheet.rules;
-          for (let rule of rules) {
+          for (const rule of rules) {
             styles += rule.cssText;
           }
         } catch (e) {

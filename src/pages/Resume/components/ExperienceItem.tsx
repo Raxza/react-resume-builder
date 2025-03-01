@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Experience } from "@/types/Resume.ts";
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
