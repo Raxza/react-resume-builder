@@ -81,18 +81,16 @@ const Home = () => {
             <Plus className="w-4 h-4" />
           </Link>
         </div>
-        <ResumeList onSelect={handleResumeSelect} />
+        <ResumeList 
+          onSelect={handleResumeSelect} 
+          onDelete={(id) => {
+            if (selectedResume?.id === id) {
+              setSelectedResume(null);
+            }
+          }}
+        />
       </motion.section>
 
-      {/* <motion.section
-        layout="position"
-        transition={{
-          duration: 0.5,
-          type: "spring",
-          bounce: 0.1
-        }}
-        className={`w-full max-w-xl mx-auto`}
-      > */}
       <AnimatePresence mode="popLayout">
         {selectedResume && (
           <motion.aside
@@ -110,16 +108,6 @@ const Home = () => {
           </motion.aside>
         )}
       </AnimatePresence>
-      {/* : (
-           <section className="p-4">
-             <h2 className="font-bold text-2xl inline-block mr-4">Created Resume</h2>
-             <Link className={buttonVariants({ variant: "outline" })} to={'/resume/create'}>
-               <Plus className="w-4 h-4" />
-             </Link>
-             <ResumeList onSelect={handleResumeSelect} />
-           </section>
-         )}
-       </motion.section> */}
     </article>
   )
 }

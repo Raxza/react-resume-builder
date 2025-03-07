@@ -87,24 +87,35 @@ export const handleUpdateResume = async (resume: Resume): Promise<DBResponse<Res
   }
 };
 
+const handleDeleteResumeVersions = async (resumeId: number): Promise<DBResponse<null>> => {
+  try {
+    const versions = await getResumeVersions(resumeId);
+    const deletePromises = versions.map(version => 
+      deleteData(Stores.ResumeVersion, version.id!)
+    );
+    await Promise.all(deletePromises);
+    return { status: 'success', data: null };
+  } catch (error) {
+    console.error('Error deleting resume versions:', error);
+    return { status: 'error', data: null };
+  }
+};
+
 export const handleDeleteResume = async (id: number): Promise<DBResponse<null>> => {
   try {
+    // First delete all versions
+    await handleDeleteResumeVersions(id);
+    // Then delete the resume itself
     const res = await deleteData(Stores.Resume, id);
-    if (res.status === 'success') {
-      console.log('Resume deleted successfully');
-    } else {
-      console.error('Error deleting resume');
-    }
     return res;
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
       return { status: 'error', data: error.message };
-    } else {
-      return { status: 'error', data: 'Unknown error' };
     }
+    return { status: 'error', data: 'Unknown error' };
   }
-}
+};
 
 export const getResumeVersions = async (resumeId: number): Promise<ResumeVersion[]> => {
   try {
