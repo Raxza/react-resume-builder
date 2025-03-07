@@ -1,5 +1,5 @@
-import { addData, getAllData, getDataById, updateData, deleteData, Stores } from "./db"
-import { Resume } from "../../types/Resume";
+import { addData, getAllData, getDataById, updateData, deleteData, Stores, getVersionsByResumeId } from "./db"
+import { Resume, ResumeVersion, ResumeWithVersions } from "../../types/Resume";
 import { DBResponse } from "../../types/DBResponse";
 
 export const handleAddResume = async (resume: Resume): Promise<DBResponse<Resume>> => {
@@ -53,22 +53,39 @@ export const handleGetResumeById = async (id: number): Promise<Resume|null> => {
 
 export const handleUpdateResume = async (resume: Resume): Promise<DBResponse<Resume>> => {
   try {
-    const res = await updateData(Stores.Resume, resume);
-    if (res.status === 'success') {
-      console.log('Resume updated successfully', res.data);
-    } else {
-      console.error('Error updating resume', res.data);
+    // First get the current resume to create a version
+    const current = await handleGetResumeById(resume.id!);
+    if (!current) {
+      return { status: 'error', data: 'Resume not found' };
     }
+
+    // Create a new version from the current resume
+    const versionData = {
+      resumeId: resume.id!,
+      version: (current as ResumeWithVersions).currentVersion || 0,
+      changes: 'Updated resume',
+      data: current,
+      createdAt: Date.now()
+    };
+    
+    await addData(Stores.ResumeVersion, versionData);
+
+    // Update the resume with new version number
+    const updatedResume = {
+      ...resume,
+      currentVersion: ((current as ResumeWithVersions).currentVersion || 0) + 1
+    };
+
+    const res = await updateData(Stores.Resume, updatedResume);
     return res;
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
       return { status: 'error', data: error.message };
-    } else {
-      return { status: 'error', data: 'Unknown error' };
     }
+    return { status: 'error', data: 'Unknown error' };
   }
-}
+};
 
 export const handleDeleteResume = async (id: number): Promise<DBResponse<null>> => {
   try {
@@ -88,3 +105,16 @@ export const handleDeleteResume = async (id: number): Promise<DBResponse<null>> 
     }
   }
 }
+
+export const getResumeVersions = async (resumeId: number): Promise<ResumeVersion[]> => {
+  try {
+    const res = await getVersionsByResumeId<ResumeVersion>(resumeId);
+    if (res.status === 'success' && Array.isArray(res.data)) {
+      return res.data;
+    }
+    return [];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};

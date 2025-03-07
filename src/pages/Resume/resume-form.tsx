@@ -1,15 +1,15 @@
-import { Resume } from "@/types/Resume.ts";
+import { Resume, ResumeVersion } from "@/types/Resume.ts";
 import { Button } from '@/components/ui/button';
 import PersonalInformation from './components/PersonalInformation';
 import WorkExperience from './components/WorkExperience';
 import EducationSection from './components/EducationSection';
 import AdditionalInformation from './components/AdditionalInformation';
 import { Input } from '@/components/ui/input';
-import { handleAddResume, handleUpdateResume, handleGetResumeById } from '@/lib/IndexedDB/resumeStore';
+import { handleAddResume, handleUpdateResume, handleGetResumeById, getResumeVersions } from '@/lib/IndexedDB/resumeStore';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ResumePreview from '@/components/common/ResumePreview';
 import { useEffect, useState } from "react";
-import { ChevronLeft, Eye, EyeOff } from "lucide-react";
+import { ChevronLeft, Eye, EyeOff, Clock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { buttonVariants } from "@/components/ui/util/button-variants";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,6 +29,8 @@ const ResumeForm = () => {
   });
   const [currentPage, setCurrentPage] = useState(0);
   const [showPreview, setShowPreview] = useState(true);
+  const [versions, setVersions] = useState<ResumeVersion[]>([]);
+  const [showVersions, setShowVersions] = useState(false);
 
   const navigate = useNavigate();
 
@@ -47,6 +49,16 @@ const ResumeForm = () => {
     }
   }, [id, navigate]);
 
+  useEffect(() => {
+    if (id) {
+      const fetchVersions = async () => {
+        const resumeVersions = await getResumeVersions(Number(id));
+        setVersions(resumeVersions.sort((a, b) => b.version - a.version));
+      };
+      fetchVersions();
+    }
+  }, [id]);
+
   const handleSave = async () => {
     const updatedResume = {
       ...resume,
@@ -59,6 +71,10 @@ const ResumeForm = () => {
     } else {
       console.error(id ? 'Error updating resume' : 'Error saving resume', result.data);
     }
+  };
+
+  const handleVersionSelect = (version: ResumeVersion) => {
+    setResume(version.data);
   };
 
   const pages = [
@@ -105,17 +121,57 @@ const ResumeForm = () => {
         }}
         className={`w-full max-w-xl mx-auto ${showPreview ? '' : 'xl:col-span-2 xl:mx-auto'}`}
       >
-        <header className="flex gap-4" aria-labelledby="Form Header">
-          <Input
-            type="text"
-            id="title"
-            value={resume.title}
-            onChange={(e) => setResume({ ...resume, title: e.target.value })}
-            placeholder='Resume Title'
-            className='w-40'
-            required
-          />
+        <header className="flex gap-4 justify-between" aria-labelledby="Form Header">
+          <div className="flex gap-4">
+            <Input
+              type="text"
+              id="title"
+              value={resume.title}
+              onChange={(e) => setResume({ ...resume, title: e.target.value })}
+              placeholder='Resume Title'
+              className='w-40'
+              required
+            />
+            {id && (
+              <Button 
+                type="button" 
+                variant="outline"
+                onClick={() => setShowVersions(!showVersions)}
+              >
+                <Clock className="w-4 h-4 mr-2" />
+                Version History
+              </Button>
+            )}
+          </div>
         </header>
+
+        {showVersions && versions.length > 0 && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="my-4 p-4 border rounded-md"
+          >
+            <h3 className="font-semibold mb-2">Version History</h3>
+            <div className="space-y-2">
+              {versions.map((version) => (
+                <Button
+                  key={version.id}
+                  type="button"
+                  variant="ghost"
+                  className="w-full justify-start"
+                  onClick={() => handleVersionSelect(version)}
+                >
+                  <span>Version {version.version + 1}</span>
+                  <span className="ml-2 text-muted-foreground">
+                    {new Date(version.createdAt).toLocaleString()}
+                  </span>
+                </Button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         <div className="grid grid-cols-[auto_1fr_auto] py-4 gap-4 justify-between">
           <Link className={buttonVariants({ variant: "outline" })} to={'/'}>
             <ChevronLeft />
@@ -126,20 +182,27 @@ const ResumeForm = () => {
                 const aintThisPage = index !== currentPage;
                 const isInvalid = !page.isValid && aintThisPage;
 
-                return (
-                  <>
-                    <li key={index}>
-                      <Button type="button" className="rounded-full w-8 h-8 disabled:bg-primary/70 aria-disabled:bg-primary/70 aria-disabled:opacity-50"
-                        aria-disabled={index > currentPage}
-                        disabled={isInvalid} onClick={() => setCurrentPage(index)}>
-                        {index + 1}
-                      </Button>
+                return [
+                  <li key={`step-${index}`}>
+                    <Button 
+                      type="button" 
+                      className="rounded-full w-8 h-8 disabled:bg-primary/70 aria-disabled:bg-primary/70 aria-disabled:opacity-50"
+                      aria-disabled={index > currentPage}
+                      disabled={isInvalid} 
+                      onClick={() => setCurrentPage(index)}
+                    >
+                      {index + 1}
+                    </Button>
+                  </li>,
+                  index < pages.length - 1 && (
+                    <li key={`separator-${index}`} aria-hidden="true" className="w-full">
+                      <Separator 
+                        aria-disabled={isInvalid || index >= currentPage} 
+                        className="bg-primary aria-disabled:bg-primary/70 aria-disabled:opacity-50 h-1" 
+                      />
                     </li>
-                    <li key={`l-${index}`} aria-hidden="true" className="last-of-type:hidden w-full">
-                      <Separator aria-disabled={isInvalid || index >= currentPage} className="bg-primary aria-disabled:bg-primary/70 aria-disabled:opacity-50 h-1" />
-                    </li>
-                  </>
-                )
+                  )
+                ]
               })}
             </ul>
           </nav>

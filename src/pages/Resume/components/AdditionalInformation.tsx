@@ -14,10 +14,12 @@ const AdditionalInformation = ({ others, setResume }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(others.length > 0 ? 0 : null);
 
   const addOther = () => {
+    const newIndex = others.length;
     setResume(prev => ({
       ...prev,
       others: [...prev.others, { ...emptyOther }],
     }));
+    setActiveIndex(newIndex);
   };
 
   const updateOther = (index: number, updatedOther: Other) => {

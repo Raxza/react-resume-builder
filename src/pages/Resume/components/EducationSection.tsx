@@ -14,10 +14,12 @@ const EducationSection = ({ educations, setResume }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(educations.length > 0 ? 0 : null);
 
   const addEducation = () => {
+    const newIndex = educations.length;
     setResume(prev => ({
       ...prev,
       educations: [...prev.educations, { ...emptyEducation }],
     }));
+    setActiveIndex(newIndex);
   };
 
   const updateEducation = (index: number, updatedEducation: Education) => {

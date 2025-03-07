@@ -62,6 +62,20 @@ export enum ResumeOtherType {
   Project = 'Project',
 }
 
+export type ResumeVersion = {
+  id: number,
+  resumeId: number,
+  version: number,
+  changes: string,
+  data: Resume,
+  createdAt: number,
+}
+
+export type ResumeWithVersions = Resume & {
+  currentVersion: number,
+  versions?: ResumeVersion[]
+}
+
 export const emptyExperience: Experience = {
   id: 0,
   company: '',
