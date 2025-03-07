@@ -1,22 +1,28 @@
 # Resume Builder
 
-This project is a Resume Builder application built with React. It allows users to create, edit, and manage their resumes. The application features a dynamic theme that can switch between light and dark modes.
+A modern, intuitive resume builder application built with React. This application helps users create, manage, and maintain professional resumes with a focus on user experience and data persistence. It features a clean, responsive interface with support for real-time preview and version control.
 
 ## Features
 
-- Create and edit resumes
-- List of all resumes
-- Store resumes to local database
+- Create and edit professional resumes with real-time preview
+- Version control system for tracking resume changes
+- Data persistence using IndexedDB for offline capability
+- Responsive design with mobile-first approach
+- Modern UI components using Radix UI and Tailwind
+- Animated transitions and interactions using Framer Motion
 - Dynamic theming with light and dark modes
-- Responsive design
+- Deletion confirmation with alert dialogs
+- Component-based architecture for maintainability
 
 ## Technologies Used
 
-- React
-- React Router
-- Indexed DB
-- Material UI
-- Tailwind CSS
+- React with TypeScript
+- React Router for navigation
+- IndexedDB for local storage
+- Radix UI for accessible components
+- Tailwind CSS for styling
+- Framer Motion for animations
+- Vite for build tooling
 
 ## Getting Started
 
