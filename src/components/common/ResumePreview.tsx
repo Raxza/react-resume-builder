@@ -159,19 +159,15 @@ const ResumePreview = ({ resume }: Props) => {
           <section>
             <h4>Skills, Achievements, & Other Experience</h4>
             <hr />
+            {others.map((other, index) => {
+              const { type, value } = other;
+            return (
             <article className="pl-2">
-            <ul>
-              {others.map((other, index) => {
-                const { type, value } = other;
-                return (
-                  <li key={"other" + index}>
-                      <strong>{type}: </strong> {/*This text is smaller than the {value} below*/}
-                      {value}
-                  </li>
-                )
-              })}
-            </ul>
+              <strong>{type}</strong>
+              <ul><li>{value}</li></ul>
             </article>
+            )
+            })}
           </section>
           : null}
       </article>
