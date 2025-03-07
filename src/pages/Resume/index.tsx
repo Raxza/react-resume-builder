@@ -8,10 +8,9 @@ import { Trash, Pencil } from 'lucide-react';
 
 interface ResumeListProps {
   onSelect?: (resume: Resume) => void;
-  showPreview?: boolean;
 }
 
-const ResumeList = ({ onSelect, showPreview }: ResumeListProps) => {
+const ResumeList = ({ onSelect }: ResumeListProps) => {
   const [resumes, setResumes] = useState<Resume[]>([]);
   const navigate = useNavigate();
 

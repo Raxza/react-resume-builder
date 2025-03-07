@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/util/button-variants"
 import { Link } from "react-router-dom"
-import { Plus, Eye, EyeOff } from "lucide-react"
+import { Plus, EyeOff } from "lucide-react"
 import { motion, AnimatePresence } from 'framer-motion'
 import ResumeList from "../Resume"
 import { useState } from "react"

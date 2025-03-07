@@ -162,7 +162,7 @@ const ResumePreview = ({ resume }: Props) => {
             {others.map((other, index) => {
               const { type, value } = other;
             return (
-            <article className="pl-2">
+            <article key={index} className="pl-2">
               <strong>{type}</strong>
               <ul><li>{value}</li></ul>
             </article>

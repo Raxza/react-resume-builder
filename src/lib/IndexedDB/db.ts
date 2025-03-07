@@ -62,7 +62,8 @@ export const addData = async <T>(storeName: string, data: T): Promise<DBResponse
         resolve({ status: 'error', data: error });
       };
     });
-  } catch (error) {
+  } catch (_error) {
+    console.log(`addData failed ${_error}`)
     return { status: 'error', data: 'Failed to connect to database' };
   }
 };
@@ -78,7 +79,8 @@ export const getAllData = async <T>(storeName: string): Promise<DBResponse<T[]>>
       request.onsuccess = () => resolve({ status: 'success', data: request.result });
       request.onerror = () => resolve({ status: 'error', data: [] });
     });
-  } catch (error) {
+  } catch (_error) {
+    console.log(`getAllData failed ${_error}`);
     return { status: 'error', data: [] };
   }
 };
@@ -94,7 +96,8 @@ export const getDataById = async <T>(storeName: string, id: number): Promise<DBR
       request.onsuccess = () => resolve({ status: 'success', data: request.result });
       request.onerror = () => resolve({ status: 'error', data: 'unknown error' });
     });
-  } catch (error) {
+  } catch (_error) {
+    console.log(`getDataById failed ${_error}`);
     return { status: 'error', data: 'Failed to connect to database' };
   }
 };
@@ -113,7 +116,8 @@ export const updateData = async <T>(storeName: string, data: T): Promise<DBRespo
         resolve({ status: 'error', data: error });
       };
     });
-  } catch (error) {
+  } catch (_error) {
+    console.log(`updateData failed ${_error}`);
     return { status: 'error', data: 'Failed to connect to database' };
   }
 };
@@ -129,7 +133,8 @@ export const deleteData = async (storeName: string, id: number): Promise<DBRespo
       request.onsuccess = () => resolve({ status: 'success', data: null });
       request.onerror = () => resolve({ status: 'error', data: null });
     });
-  } catch (error) {
+  } catch (_error) {
+    console.log(`deleteData failed ${_error}`);
     return { status: 'error', data: null };
   }
 };
@@ -146,7 +151,8 @@ export const getVersionsByResumeId = async <T>(resumeId: number): Promise<DBResp
       request.onsuccess = () => resolve({ status: 'success', data: request.result });
       request.onerror = () => resolve({ status: 'error', data: [] });
     });
-  } catch (error) {
+  } catch (_error) {
+    console.log(`getVersionsByResumeId failed ${_error}`);
     return { status: 'error', data: [] };
   }
 };
