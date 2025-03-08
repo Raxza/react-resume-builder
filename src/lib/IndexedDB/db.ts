@@ -1,7 +1,7 @@
 import { DBResponse } from '../../types/DBResponse';
 
 let db: IDBDatabase;
-let version = 1;
+let version = 2;
 let dbReady: Promise<boolean>;
 
 export const initDB = (): Promise<boolean> => {
