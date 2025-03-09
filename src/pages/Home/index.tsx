@@ -37,7 +37,9 @@ const Home = () => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
             >
-              <h1>React Resume Builder</h1>
+              <div className="not-prose">
+                <h1 className="text-primary text-4xl font-bold">React Resume Builder</h1>
+              </div>
             </motion.div>
             <motion.div
               initial={{ x: 70, opacity: 0 }}
@@ -102,7 +104,7 @@ const Home = () => {
               type: "spring",
               bounce: 0.1
             }}
-            className="w-full max-w-xl relative"
+            className="w-full max-w-xl mx-auto relative"
           >
             <ResumePreview resume={selectedResume} scale={0.85} />
           </motion.aside>

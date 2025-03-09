@@ -103,3 +103,6 @@ export const emptyOther: Other = {
   type: ResumeOtherType.Skill,
   value: '',
 };
+
+// Remove or comment out the old generateId function
+// export const generateId = (prefix: string) => { ... };

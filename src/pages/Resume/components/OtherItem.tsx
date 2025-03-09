@@ -5,17 +5,32 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { TrashIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import { Textarea } from '@/components/ui/textarea';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type Props = {
   other: Other,
-  index: number,
   isActive: boolean,
   onToggle: () => void,
   onChange: (other: Other) => void,
   onRemove: () => void
 }
 
-const OtherItem = ({ other, index, isActive, onToggle, onChange, onRemove }: Props) => {
+const OtherItem = ({ other, isActive, onToggle, onChange, onRemove }: Props) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: other.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
 
   const updateType = (value: ResumeOtherType | string) => {
     onChange({ ...other, type: value as ResumeOtherType });
@@ -26,9 +41,21 @@ const OtherItem = ({ other, index, isActive, onToggle, onChange, onRemove }: Pro
   };
 
   return (
-    <div key={index} className="space-y-4 p-4 border rounded">
+    <div 
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      className="space-y-4 p-4 border rounded"
+    >
       <div className="flex justify-between items-center">
-        <h3>Additional {index + 1}</h3>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="cursor-grab touch-none"
+            {...listeners}
+          >⋮⋮</button>
+          <h3>Additional {other.id + 1}</h3>
+        </div>
         <div className="flex space-x-2">
           <Button type="button" onClick={onToggle} variant="outline" size="sm">
             {!isActive ? <ChevronDownIcon className="h-4 w-4" /> : <ChevronUpIcon className="h-4 w-4" />}

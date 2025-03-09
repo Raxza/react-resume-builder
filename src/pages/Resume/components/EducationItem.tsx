@@ -6,17 +6,32 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { TrashIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import DatePicker from '@/components/ui/DatePicker';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type Props = {
   education: Education,
-  index: number,
   isActive: boolean,
   onToggle: () => void,
   onChange: (education: Education) => void,
   onRemove: () => void
 }
 
-const EducationItem = ({ education, index, isActive, onToggle, onChange, onRemove }: Props) => {
+const EducationItem = ({ education, isActive, onToggle, onChange, onRemove }: Props) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: education.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
 
   const updateInstitution = (value: string) => {
     onChange({ ...education, institution: value });
@@ -84,9 +99,21 @@ const EducationItem = ({ education, index, isActive, onToggle, onChange, onRemov
   };
 
   return (
-    <div key={index} className="space-y-4 p-4 border rounded">
+    <div 
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      className="space-y-4 p-4 border rounded"
+    >
       <div className="flex justify-between items-center">
-        <h3>Education {index + 1}</h3>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="cursor-grab touch-none"
+            {...listeners}
+          >⋮⋮</button>
+          <h3>Education {education.id + 1}</h3>
+        </div>
         <div className="flex space-x-2">
           <Button type="button" onClick={onToggle} variant="outline" size="sm">
             {!isActive ? <ChevronDownIcon className="h-4 w-4" /> : <ChevronUpIcon className="h-4 w-4" />}

@@ -5,17 +5,33 @@ import { Button } from "@/components/ui/button.tsx";
 import { TrashIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import DatePicker from '@/components/ui/DatePicker';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type Props = {
   experience: Experience,
-  index: number,
   isActive: boolean,
   onToggle: () => void,
   onChange: (experience: Experience) => void,
   onRemove: () => void
 }
 
-const ExperienceItem = ({ experience, index, isActive, onToggle, onChange, onRemove }: Props) => {
+const ExperienceItem = ({ experience, isActive, onToggle, onChange, onRemove }: Props) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: experience.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
   const updateCompany = (value: string) => {
     onChange({ ...experience, company: value });
   };
@@ -62,9 +78,22 @@ const ExperienceItem = ({ experience, index, isActive, onToggle, onChange, onRem
   };
 
   return (
-    <div key={index} className="space-y-4 p-4 border rounded">
+    <div
+      key={experience.id}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      className="space-y-4 p-4 border rounded"
+    >
       <div className="flex justify-between items-center">
-        <h3>Experience {index + 1}</h3>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="cursor-grab touch-none"
+            {...listeners}
+          >⋮⋮</button>
+          <h3>Experience {experience.id + 1}</h3>
+        </div>
         <div className="flex space-x-2">
           <Button type="button" onClick={onToggle} variant="outline" size="sm">
             {!isActive ? <ChevronDownIcon className="h-4 w-4" /> : <ChevronUpIcon className="h-4 w-4" />}
