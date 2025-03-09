@@ -77,34 +77,57 @@ const ResumeForm = () => {
     setResume(version.data);
   };
 
+  // const handleItemReorder = () => {
+  //   // Force a re-render while maintaining the current page
+  //   setResume(prev => ({ ...prev, lastModifiedTime: Date.now() }));
+  // };
+
   const pages = [
     {
       title: "Personal Information",
       content: (
-        <PersonalInformation name={resume.name} email={resume.email} phone={resume.phone} address={resume.address} summary={resume.summary} setResume={setResume} />
+        <PersonalInformation 
+          name={resume.name} 
+          email={resume.email} 
+          phone={resume.phone} 
+          address={resume.address} 
+          summary={resume.summary} 
+          setResume={setResume} 
+        />
       ),
       isValid: resume.name.trim() !== ''
     },
     {
       title: "Work Experience",
       content: (
-        <WorkExperience experiences={resume.experiences} setResume={setResume} />
+        <WorkExperience 
+          experiences={resume.experiences} 
+          setResume={setResume}
+        />
       ),
       isValid: resume.experiences.every(exp => exp.company && exp.position && exp.startDate && (exp.endDate || exp.isCurrent))
     },
     {
       title: "Education",
       content: (
-        <EducationSection educations={resume.educations} setResume={setResume} />
+        <EducationSection 
+          educations={resume.educations} 
+          setResume={setResume}
+          // onReorder={handleItemReorder}
+        />
       ),
       isValid: resume.educations.every(edu => edu.institution && edu.degree && edu.startDate && (edu.endDate || edu.isCurrent))
     },
     {
       title: "Additional Information",
       content: (
-        <AdditionalInformation others={resume.others} setResume={setResume} />
+        <AdditionalInformation 
+          others={resume.others} 
+          setResume={setResume}
+          // onReorder={handleItemReorder}
+        />
       ),
-      isValid: true
+      isValid: resume.others.every(other => other.type && other.value)
     },
   ];
 
@@ -253,7 +276,7 @@ const ResumeForm = () => {
               type: "spring",
               bounce: 0.1
             }}
-            className="w-full max-w-xl relative"
+            className="w-full max-w-xl mx-auto relative"
           >
             <ResumePreview resume={resume} scale={0.85} />
           </motion.aside>
